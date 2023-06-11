@@ -32,4 +32,8 @@ public class NoteService {
         }
         return note;
     }
+
+    public Notes findById(Integer id) {
+        return notesMapper.selectByPrimaryKey(id);
+    }
 }

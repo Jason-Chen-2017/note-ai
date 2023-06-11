@@ -3,7 +3,6 @@ package com.light.noteai.controller;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +20,19 @@ public class NotesController {
 
     @GetMapping("/getNotesByPage")
     public List<Notes> getNotesByPage(@RequestParam(defaultValue = "1") int pageNum,
-                                     @RequestParam(defaultValue = "10") int pageSize) {
+                                      @RequestParam(defaultValue = "10") int pageSize) {
         return noteService.getNotesByPage(pageNum, pageSize);
     }
 
-    @PostMapping("/save")
-    public Notes save(@RequestBody Notes note) {
+    @PostMapping("/saveJson")
+    public Notes saveJson(@RequestBody Notes note) {
         return noteService.save(note);
     }
 
+    @PostMapping(value = "/saveForm", consumes = {"application/json", "application/x-www-form-urlencoded;charset=UTF-8"})
+    public Notes saveForm(@ModelAttribute Notes note) {
+
+        return noteService.save(note);
+
+    }
 }
