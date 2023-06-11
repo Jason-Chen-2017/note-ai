@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2020. ByteDance Inc. All rights reserved.
+  -->
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="mysqlgenerator" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/note_ai?useUnicode=true&amp;characterEncoding=UTF-8&amp;verifyServerCertificate=false&amp;useSSL=false"
+                        userId="root"
+                        password="12345678"/>
+
+        <javaModelGenerator targetPackage="com.light.noteai.mapper.po"
+                            targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper/generator" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.light.noteai.dal.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+
+        <table tableName="notes" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true"/>
+
+    </context>
+</generatorConfiguration>
