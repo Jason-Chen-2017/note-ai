@@ -41,7 +41,7 @@
 
     var editor = editormd("editor", {
         width: "100%",
-        height: "500px",
+        height: "1000px",
         path: "/webjars/editor.md/1.5.0/lib/",
         saveHTMLToTextarea: true,
         imageUpload: true,

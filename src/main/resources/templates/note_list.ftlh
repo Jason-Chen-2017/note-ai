@@ -40,8 +40,8 @@
     <tbody>
     <#list notes as note>
         <tr>
-            <td>${note.id}</td>
-            <td><a href="/notes/${note.id}">${note.title}</a></td>
+            <td>${note.id?c}</td>
+            <td><a href="/notes/${note.id?c}">${note.title}</a></td>
 
             <td>
                 <#if note.content?? && note.content?length lt 100>
