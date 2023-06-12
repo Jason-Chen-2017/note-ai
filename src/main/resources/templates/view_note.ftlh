@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Note AI</title>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+
     <link rel="stylesheet" href="/webjars/editor.md/1.5.0/css/editormd.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
@@ -12,18 +14,17 @@
 <input type="hidden" name="title" value="${(note.title)!''}">
 
 
-<div class="btn-lg btn-default text-center">
-    <a href="/notes">Back Note AI Home</a>
-</div>
-
-
 <h1>${(note.title)!''}</h1>
 
 
 <div class="text-center">
+
+    <button id="writeBlog" onclick="writeBlog()" class="btn-info btn-lg">AI写博客</button>
+    <button id="complete" onclick="complete()" class="btn-info btn-lg">AI续写</button>
     <button id="saveButton" onclick="saveButton()" class="btn-info btn-lg">保存</button>
-    <button id="writeBlog" onclick="writeBlog()" class="btn-info btn-lg">AI根据选中标题自动写博客</button>
-    <button id="complete" onclick="complete()" class="btn-info btn-lg">AI根据选中内容自动续写</button>
+
+    <a class="btn-lg btn-info" href="/notes">回首页</a>
+
 </div>
 
 <div id="editor">

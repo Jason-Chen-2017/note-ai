@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Note AI</title>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
 <body>
 
