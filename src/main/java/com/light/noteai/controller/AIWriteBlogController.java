@@ -62,7 +62,13 @@ public class AIWriteBlogController {
                 if (Objects.equals(title, contentInitial)) {
                     String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
                     note.setContent(content);
-                    noteService.save(note);
+
+                    try {
+                        noteService.save(note);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
                 }
             }
 

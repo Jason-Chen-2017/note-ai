@@ -45,7 +45,7 @@
             <td><a href="/notes/${note.id?c}">${note.title}</a></td>
 
             <td>
-                <#if note.content?? && note.content?length lt 100>
+                <#if note.content?? && note.content?length lte 100>
                     ${note.content}
                 <#else>
                     ${note.content[0..100]}...
