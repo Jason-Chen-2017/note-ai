@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Note AI</h1>
+<h1 class="text-center"><a href="/doc.html" target="_blank">Note AI</a></h1>
 
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -22,9 +22,14 @@
            placeholder="帮我拟定”人工智能大模型“领域的100篇热门博客文章标题,此处只需要输入：人工智能大模型"></input>
 </div>
 
-<button id="aigc"
-        onclick="aigc()"
-        class="btn-lg btn-info">AIGC</button>
+<div class="text-center">
+    <button id="aigc"
+            onclick="aigc()"
+            class="btn-lg btn-info col-sm-12">
+        AIGC
+    </button>
+</div>
+
 
 <table class="table table-striped table-responsive table-hover"
        id="table"
