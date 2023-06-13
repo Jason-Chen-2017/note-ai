@@ -4,6 +4,7 @@ import com.light.noteai.ChatGLMUtil;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.model.Prompt;
 import com.light.noteai.service.NoteService;
+import com.light.noteai.task.MyTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,8 @@ public class AIWriteBlogController {
 
     @Autowired
     private NoteService noteService;
+    @Autowired
+    private MyTask myTask;
 
     @PostMapping("/complete")
     public String complete(@RequestBody Prompt prompt) {
@@ -25,13 +28,14 @@ public class AIWriteBlogController {
 
     @PostMapping("/aigc")
     public String aigc(@RequestBody Prompt prompt) {
+
         String lines = ChatGLMUtil.INSTANCE.Complete(prompt.getPrompt());
 
         for (String line : lines.split("\n")) {
 
             System.out.println(line);
 
-            if(!line.trim().equals("")){
+            if (!line.trim().equals("")) {
                 Notes note = new Notes();
                 note.setTitle(line);
                 note.setContent(line);
@@ -40,6 +44,18 @@ public class AIWriteBlogController {
             }
 
         }
+
+        return "done";
+    }
+
+    @GetMapping("/auto_aigc")
+    public String auto_aigc() {
+
+        new Thread(() -> {
+
+            myTask.doAutoAIGC();
+
+        }).start();
 
         return "done";
     }
@@ -56,6 +72,8 @@ public class AIWriteBlogController {
                 if (Objects.equals(title, contentInitial)) {
                     String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
                     note.setContent(content);
+
+                    System.out.println(content);
 
                     try {
                         noteService.save(note);
