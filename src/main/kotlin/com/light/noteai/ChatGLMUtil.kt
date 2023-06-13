@@ -41,7 +41,7 @@ object ChatGLMUtil {
 
     fun Complete(prompt: String): String {
         val data = mutableMapOf<String, Any>()
-        data["prompt"] = buildLongerPrompt(prompt)
+        data["prompt"] = prompt
         data["temperature"] = 0.95
         data["max_tokens"] = 8192
         data["top_p"] = 0.9
@@ -151,17 +151,6 @@ ${text}
         return InputPrompt
     }
 
-
-    private fun buildLongerPrompt(prompt: String): String {
-        val InputPrompt = """
-         你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言，并且不少于1000字的内容，续写以下内容：
-         ${prompt}
-         """.trimIndent()
-
-        println(InputPrompt)
-
-        return InputPrompt
-    }
 
 
     fun replaceNewLineAndTab(text: String): String {

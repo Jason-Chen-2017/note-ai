@@ -18,12 +18,6 @@ public class AIWriteBlogController {
     @Autowired
     private NoteService noteService;
 
-
-    @PostMapping("/writeBlog")
-    public String writeBlog(@RequestBody Prompt prompt) {
-        return ChatGLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
-    }
-
     @PostMapping("/complete")
     public String complete(@RequestBody Prompt prompt) {
         return ChatGLMUtil.INSTANCE.Complete(prompt.getPrompt());

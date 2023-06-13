@@ -91,13 +91,9 @@
 
     function writeBlog() {
 
-        // 获取当前鼠标选中文本
-        var selectedText = window.getSelection().toString();
-        if (selectedText) {
-            console.log("当前鼠标选中文本: " + selectedText);
-        }
+        var title = $("input[name='title']").val();
 
-        var data = {prompt: selectedText};
+        var data = {prompt: title};
 
         $.ajax({
             type: "POST",
@@ -128,7 +124,9 @@
             console.log("当前鼠标选中文本: " + selectedText);
         }
 
-        var data = {prompt: selectedText};
+        var prompt = `你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言，既有理论说明，又有实际例子讲解，并且不少于2000字，续写这个内容：` + selectedText
+
+        var data = {prompt: prompt};
 
         $.ajax({
             type: "POST",

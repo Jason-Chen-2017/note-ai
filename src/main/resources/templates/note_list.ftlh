@@ -70,7 +70,7 @@
 
         var topic = $("input[name='topic']").val();
 
-        var selectedText = "帮我拟定" + topic + "领域的100篇热门博客文章标题:"
+        var selectedText = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言，请帮我拟定：" + topic + "领域的100篇热门博客文章标题。"
 
         var data = {prompt: selectedText};
 
