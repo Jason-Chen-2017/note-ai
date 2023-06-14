@@ -13,8 +13,11 @@
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
-<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<link href="//cdn.bootcss.com/datatables/1.10.10/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/datatables/1.10.10/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/datatables/1.10.10/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/datatables/1.10.10/js/jquery.dataTables.min.js"></script>
 
 <div>
     <input id="topic" name="topic"
@@ -32,7 +35,7 @@
 
 
 <table class="table table-striped table-responsive table-hover"
-       id="table"
+       id="dataTable"
        data-toggle="table"
        data-search="true">
     <thead>
@@ -91,6 +94,43 @@
         });
 
     }
+
+
+    $(function () {
+        $('#dataTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "aLengthMenu": [10, 20, 50, 100, 200],
+            "processing": true,
+            "stateSave": true,
+            responsive: true,
+            fixedHeader: true,
+            order: [[0, "desc"]],
+
+            language: {
+                "search": "<div style='margin-left:auto;margin-right:2px;'>_INPUT_ &nbsp;<span class='btn btn-default'>搜索</span></div>",
+
+                paginate: {//分页的样式内容。
+                    previous: "上一页",
+                    next: "下一页",
+                    first: "第一页",
+                    last: "最后"
+                }
+                ,
+
+                zeroRecords: "没有内容",//table tbody内容为空时，tbody的内容。
+                //下面三者构成了总体的左下角的内容。
+                info: "总计 _TOTAL_ 本,共 _PAGES_ 页，_START_ - _END_ 本",//左下角的信息显示，大写的词为关键字。
+                infoEmpty: "0条记录",//筛选为空时左下角的显示。
+                infoFiltered: ""//筛选之后的左下角筛选提示，
+            }
+        })
+
+    })
 
 </script>
 
