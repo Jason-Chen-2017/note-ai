@@ -50,7 +50,7 @@
     <#list notes as note>
         <tr>
             <td>${note.id?c}</td>
-            <td><a href="/notes/${note.id?c}">${note.title}</a></td>
+            <td><a target="_blank" href="/notes/${note.id?c}">${note.title}</a></td>
 
             <td>
                 <#if note.content?? && note.content?length lte 100>

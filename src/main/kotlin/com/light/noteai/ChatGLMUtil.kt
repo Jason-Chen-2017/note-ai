@@ -5,18 +5,29 @@ import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
 import com.google.gson.Gson
 
+val CHATGLM_LOCAL_API_1 = "http://127.0.0.1:8000"  // CUDA_DEVICE = "cuda:0"
+val CHATGLM_LOCAL_API_2 = "http://127.0.0.1:8001"  // CUDA_DEVICE = "cuda:1"
+
+// 随机返回 CHATGLM_LOCAL_API_1， CHATGLM_LOCAL_API_2
+fun Get_CHATGLM_LOCAL_API_Randomly(): String {
+    return if (Math.random() < 0.5) CHATGLM_LOCAL_API_1 else CHATGLM_LOCAL_API_2
+}
 
 //fun main() {
-//    val title = "大型语言模型的实现技术原理与应用"
-//    ChatGLMUtil.WriteBlog(title)
+//    (0..10).forEach {
+//        val api = ChatGLMUtil.GetAPI()
+//        println(api)
+//    }
 //}
-
-val CHATGLM_LOCAL_API = "http://127.0.0.1:8000"
 
 /**
  * 备注：调用该API需到平台用户手册中--》》新手指南下载平台调用工具包
  */
 object ChatGLMUtil {
+
+    fun GetAPI():String{
+        return Get_CHATGLM_LOCAL_API_Randomly()
+    }
 
     fun WriteBlog(prompt: String): String {
         val data = mutableMapOf<String, Any>()
@@ -24,6 +35,8 @@ object ChatGLMUtil {
         data["temperature"] = 0.95
         data["max_tokens"] = 8192
         data["top_p"] = 0.9
+
+        val CHATGLM_LOCAL_API = Get_CHATGLM_LOCAL_API_Randomly()
 
         val (_, _, result) = CHATGLM_LOCAL_API.httpPost()
             .appendHeader("Content-Type", "application/json")
@@ -45,6 +58,8 @@ object ChatGLMUtil {
         data["temperature"] = 0.95
         data["max_tokens"] = 8192
         data["top_p"] = 0.9
+
+        val CHATGLM_LOCAL_API = Get_CHATGLM_LOCAL_API_Randomly()
 
         val (_, _, result) = CHATGLM_LOCAL_API.httpPost()
             .appendHeader("Content-Type", "application/json")
@@ -151,7 +166,6 @@ ${text}
 
         return InputPrompt
     }
-
 
 
     fun replaceNewLineAndTab(text: String): String {
