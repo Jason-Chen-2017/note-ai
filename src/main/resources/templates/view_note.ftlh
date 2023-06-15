@@ -116,6 +116,7 @@
         });
 
     }
+
     function complete() {
 
         // 获取当前鼠标选中文本

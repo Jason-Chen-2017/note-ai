@@ -24,6 +24,11 @@ public class AIWriteBlogController {
     @Autowired
     private MyTask myTask;
 
+    @PostMapping("/writeBlog")
+    public String writeBlog(@RequestBody Prompt prompt) {
+        return ChatGLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
+    }
+
     @PostMapping("/complete")
     public String complete(@RequestBody Prompt prompt) {
         return ChatGLMUtil.INSTANCE.Complete(prompt.getPrompt());
