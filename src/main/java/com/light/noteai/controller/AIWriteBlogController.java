@@ -127,9 +127,13 @@ public class AIWriteBlogController {
         title = replaceStartDigitAndDot(title);
         // 去掉标题中的引号和 - 等特殊字符
         title = title.replaceAll("\"", "");
+        title = title.replaceAll("“", "");
+        title = title.replaceAll(" ", "");
         title = title.replaceAll("-", "");
         title = title.replaceAll("》", "");
         title = title.replaceAll("《", "");
+        title = title.replaceAll("]", "");
+        title = title.replaceAll("\\[", "");
 
         // 避免超长标题
         if (title.length() > 55) {
