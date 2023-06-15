@@ -101,16 +101,11 @@
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (response) {
-                // 保存成功后的处理逻辑
                 console.log(response);
-
-                var replaceText = selectedText + response
-
-                editor.replaceSelection(replaceText);
-
+                editor.setValue(response);
             },
             error: function (xhr, status, error) {
-                // 保存失败后的处理逻辑
+                // 失败后的处理逻辑
                 console.log(xhr.responseText);
             }
         });

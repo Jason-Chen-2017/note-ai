@@ -33,7 +33,9 @@ fun Get_CHATGLM_LOCAL_API_Randomly(): String {
 object ChatGLMUtil {
 
     fun GetAPI(): String {
-        return Get_CHATGLM_LOCAL_API_Randomly()
+        val API = Get_CHATGLM_LOCAL_API_Randomly()
+        println("====================================== API:$API ======================================")
+        return API
     }
 
     fun WriteBlog(prompt: String): String {
@@ -43,9 +45,8 @@ object ChatGLMUtil {
         data["max_tokens"] = 8192
         data["top_p"] = 0.9
 
-        val CHATGLM_LOCAL_API = Get_CHATGLM_LOCAL_API_Randomly()
 
-        val (_, _, result) = CHATGLM_LOCAL_API.httpPost()
+        val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
             .timeout(600 * 1000)
             .jsonBody(Gson().toJson(data).toString())
@@ -66,9 +67,7 @@ object ChatGLMUtil {
         data["max_tokens"] = 8192
         data["top_p"] = 0.9
 
-        val CHATGLM_LOCAL_API = Get_CHATGLM_LOCAL_API_Randomly()
-
-        val (_, _, result) = CHATGLM_LOCAL_API.httpPost()
+        val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
             .timeout(600 * 1000)
             .jsonBody(Gson().toJson(data).toString())
