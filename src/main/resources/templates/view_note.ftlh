@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<input type="hidden" name="id" value="${(note.id)!''}">
+<input type="hidden" name="id" value="${(note.id?c)!''}">
 <input type="hidden" name="title" value="${(note.title)!''}">
 
 
