@@ -4,13 +4,20 @@ package com.light.noteai
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
 import com.google.gson.Gson
+import java.util.*
 
-val CHATGLM_LOCAL_API_1 = "http://127.0.0.1:8000"  // CUDA_DEVICE = "cuda:0"
-val CHATGLM_LOCAL_API_2 = "http://127.0.0.1:8001"  // CUDA_DEVICE = "cuda:1"
 
-// 随机返回 CHATGLM_LOCAL_API_1， CHATGLM_LOCAL_API_2
+// 随机返回 apiList 中的一个元素
 fun Get_CHATGLM_LOCAL_API_Randomly(): String {
-    return if (Math.random() < 0.5) CHATGLM_LOCAL_API_1 else CHATGLM_LOCAL_API_2
+    val API_LIST = listOf(
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:8002",
+        "http://127.0.0.1:8003",
+        "http://127.0.0.1:8004",
+    )
+    val rand = Random()
+    val index = rand.nextInt(API_LIST.size) // 0,1,2,3 randomly
+    return API_LIST[index]
 }
 
 //fun main() {
@@ -25,7 +32,7 @@ fun Get_CHATGLM_LOCAL_API_Randomly(): String {
  */
 object ChatGLMUtil {
 
-    fun GetAPI():String{
+    fun GetAPI(): String {
         return Get_CHATGLM_LOCAL_API_Randomly()
     }
 
