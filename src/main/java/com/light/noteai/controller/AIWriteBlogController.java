@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -101,8 +103,37 @@ public class AIWriteBlogController {
 
     String mdFilePath = "/home/me/tools/pycnblog/articles/";
 
+    /**
+     *
+     * @param date 20230616
+     * @return
+     */
     @GetMapping("/writeMD")
-    public String writeMD() {
+    public String writeMD(@RequestParam("date") String date) throws ParseException {
+        Date d = new SimpleDateFormat("yyyyMMdd").parse(date);
+
+        new Thread(() -> {
+
+            List<Notes> notes = noteService.getNotesByDate(d);
+            for (Notes note : notes) {
+                String title = note.getTitle();
+                String content = note.getContent();
+
+                // 如果标题跟内容不相同，表面是生成之后的文章了，文章内容写入md文件中
+                if (!Objects.equals(title, content) && title.length() > 10) {
+                    WriteMD(mdFilePath + d, title, content);
+                }
+            }
+
+        }).start();
+
+        return "done";
+    }
+
+
+    @GetMapping("/writeMDAll")
+    public String writeMDAll() throws ParseException {
+
 
         new Thread(() -> {
 
@@ -110,15 +141,17 @@ public class AIWriteBlogController {
             for (Notes note : notes) {
                 String title = note.getTitle();
                 String content = note.getContent();
+                Date date = note.getCreatedAt();
+
+                String d = new SimpleDateFormat("yyyyMMdd").format(date);
 
                 // 如果标题跟内容不相同，表面是生成之后的文章了，文章内容写入md文件中
                 if (!Objects.equals(title, content) && title.length() > 10) {
-                    WriteMD(mdFilePath, title, content);
+                    WriteMD(mdFilePath + d, title, content);
                 }
             }
 
         }).start();
-
 
         return "done";
     }
@@ -146,6 +179,11 @@ public class AIWriteBlogController {
         }
 
         try {
+            File fileDir = new File(mdFilePath);
+            if(!fileDir.exists()){
+                fileDir.mkdirs();
+            }
+
             File file = new File(mdFilePath, title + ".md");
 
             if (!file.exists()) {

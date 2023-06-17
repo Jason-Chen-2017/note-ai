@@ -71,6 +71,7 @@ public class MyTask {
                 System.out.println(content);
 
                 note.setContent(content);
+                note.setUpdatedAt(new Date());
 
                 try {
                     noteService.save(note);

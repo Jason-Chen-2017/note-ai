@@ -3,9 +3,11 @@ package com.light.noteai.service;
 import com.light.noteai.dal.mapper.NotesMapper;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.mapper.po.NotesExample;
+import com.light.noteai.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,5 +37,12 @@ public class NoteService {
 
     public Notes findById(Integer id) {
         return notesMapper.selectByPrimaryKey(id);
+    }
+
+    public List<Notes> getNotesByDate(Date d) {
+        Date dp = DateUtils.getNextDate(d);
+        NotesExample exp = new NotesExample();
+        exp.createCriteria().andCreatedAtBetween(d, dp);
+        return notesMapper.selectByExampleWithBLOBs(exp);
     }
 }
