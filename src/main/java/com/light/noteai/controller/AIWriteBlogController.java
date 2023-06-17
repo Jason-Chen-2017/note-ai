@@ -134,7 +134,6 @@ public class AIWriteBlogController {
     @GetMapping("/writeMDAll")
     public String writeMDAll() throws ParseException {
 
-
         new Thread(() -> {
 
             List<Notes> notes = noteService.getAllNotes();

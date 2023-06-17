@@ -1,6 +1,8 @@
 package com.light.noteai.task;
 
 import com.light.noteai.ChatGLMUtil;
+import com.light.noteai.constant.NoteAITopics;
+import com.light.noteai.controller.AIWriteBlogController;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static com.light.noteai.constant.NoteAITopics.topics;
-
 @Component
 public class MyTask {
 
     @Autowired
     private NoteService noteService;
+
+
+    @Autowired
+    private AIWriteBlogController AIWriteBlogController;
 
 
     @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
@@ -30,7 +34,7 @@ public class MyTask {
     }
 
     public void doAutoAIGC() {
-        for (String topic : topics) {
+        for (String topic : NoteAITopics.getTopics()) {
             String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言，请帮我拟定：" + topic + " 领域的100篇热门博客文章标题。";
 
             System.out.println(prompt);
@@ -51,6 +55,7 @@ public class MyTask {
             }
         }
     }
+
 
     @Scheduled(cron = "0 0 */2 * * ?") // 每隔2h钟执行一次
     public void WriteBlog() {
@@ -80,6 +85,16 @@ public class MyTask {
                 }
 
             }
+        }
+    }
+
+
+    @Scheduled(cron = "0 */10 * * * ?") // 每隔10分钟执行一次
+    public void WriteMDFiles() {
+        try {
+            AIWriteBlogController.writeMDAll();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
