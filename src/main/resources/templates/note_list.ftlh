@@ -38,32 +38,32 @@
        id="dataTable"
        data-toggle="table"
        data-search="true">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Content</th>
-        <th>CreatedAt</th>
-    </tr>
-    </thead>
-    <tbody>
-    <#list notes as note>
-        <tr>
-            <td>${note.id?c}</td>
-            <td><a target="_blank" href="/notes/${note.id?c}">${note.title}</a></td>
+    <#--    <thead>-->
+    <#--    <tr>-->
+    <#--        <th>Id</th>-->
+    <#--        <th>Title</th>-->
+    <#--        <th>Content</th>-->
+    <#--        <th>CreatedAt</th>-->
+    <#--    </tr>-->
+    <#--    </thead>-->
+    <#--    <tbody>-->
+    <#--    <#list notes as note>-->
+    <#--        <tr>-->
+    <#--            <td>${note.id?c}</td>-->
+    <#--            <td><a target="_blank" href="/notes/${note.id?c}">${note.title}</a></td>-->
 
-            <td>
-                <#if note.content?? && note.content?length lte 100>
-                    ${note.content}
-                <#else>
-                    ${note.content[0..100]}...
-                </#if>
-            </td>
+    <#--            <td>-->
+    <#--                <#if note.content?? && note.content?length lte 100>-->
+    <#--                    ${note.content}-->
+    <#--                <#else>-->
+    <#--                    ${note.content[0..100]}...-->
+    <#--                </#if>-->
+    <#--            </td>-->
 
-            <td>${note.createdAt?string('yyyy-MM-dd hh:mm:ss')}</td>
-        </tr>
-    </#list>
-    </tbody>
+    <#--            <td>${note.createdAt?string('yyyy-MM-dd hh:mm:ss')}</td>-->
+    <#--        </tr>-->
+    <#--    </#list>-->
+    <#--    </tbody>-->
 </table>
 
 
@@ -97,6 +97,7 @@
 
 
     $(function () {
+
         $('#dataTable').DataTable({
             "paging": true,
             "lengthChange": true,
@@ -110,23 +111,55 @@
             responsive: true,
             fixedHeader: true,
             order: [[0, "desc"]],
+            columns: [
+                {title: "ID", data: "id"},
+                {
+                    title: "标题", data: "title", render: function (data, type, row) {
+                        return "<a href='/notes/" + row.id + "' class='btn btn-link'>" + row.title + "</a>";
+                    }
+                },
+                {
+                    title: "内容", data: "content", render: function (data, type, row) {
+                        var content = row.content;
+                        if (content.length > 100) {
+                            content = content.substr(0, 100)
+                        }
+
+                        return content + "...";
+                    }
+                },
+                {title: "创建时间", data: "createdAt"}
+            ],
 
             language: {
                 "search": "<div style='margin-left:auto;margin-right:2px;'>_INPUT_ &nbsp;<span class='btn btn-default'>搜索</span></div>",
 
-                paginate: {//分页的样式内容。
+                paginate: { //分页的样式内容。
                     previous: "上一页",
                     next: "下一页",
                     first: "第一页",
                     last: "最后"
-                }
-                ,
+                },
 
                 zeroRecords: "没有内容",//table tbody内容为空时，tbody的内容。
                 //下面三者构成了总体的左下角的内容。
                 info: "总计 _TOTAL_ 条,共 _PAGES_ 页，_START_ - _END_ 条",//左下角的信息显示，大写的词为关键字。
-                infoEmpty: "0条记录",//筛选为空时左下角的显示。
-                infoFiltered: ""//筛选之后的左下角筛选提示，
+                "infoEmpty": "第 0 至 0 项记录，共 0 项",
+                "infoFiltered": "(由 _MAX_ 项记录过滤)",
+            },
+            "serverSide": true, // 启用后端分页
+            "ajax": {
+                url: "/api/notes/findNotesByKeyword", // 后端接口地址
+                type: "POST", // 请求方式
+                data: function (d) {
+                    // 将分页参数传递给后端接口(跟后端接口的参数名字要对应上)
+                    d.pageNum = $("#dataTable").DataTable().page.info().page + 1;
+                    d.pageSize = $("#dataTable").DataTable().page.info().length;
+                    // 搜索框的输入参数
+                    d.keyword = $('input[type="search"]').val();
+                    // 框架会默认POST 一些其他参数
+
+                }
             }
         })
 
@@ -136,3 +169,39 @@
 
 </body>
 </html>
+
+
+<#--draw: 3
+columns[0][data]: id
+columns[0][name]:
+columns[0][searchable]: true
+columns[0][orderable]: true
+columns[0][search][value]:
+columns[0][search][regex]: false
+columns[1][data]: title
+columns[1][name]:
+columns[1][searchable]: true
+columns[1][orderable]: true
+columns[1][search][value]:
+columns[1][search][regex]: false
+columns[2][data]: content
+columns[2][name]:
+columns[2][searchable]: true
+columns[2][orderable]: true
+columns[2][search][value]:
+columns[2][search][regex]: false
+columns[3][data]: createdAt
+columns[3][name]:
+columns[3][searchable]: true
+columns[3][orderable]: true
+columns[3][search][value]:
+columns[3][search][regex]: false
+order[0][column]: 0
+order[0][dir]: desc
+start: 200
+length: 10
+search[value]:
+search[regex]: false
+pageNum: 21
+pageSize: 10
+keyword: -->

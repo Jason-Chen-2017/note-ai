@@ -2,11 +2,10 @@ package com.light.noteai.dal.mapper;
 
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.mapper.po.NotesExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface NotesMapper {
     /**
@@ -144,6 +143,12 @@ public interface NotesMapper {
     List<Notes> findByPage(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
 
 
+    @Select("SELECT * FROM notes\n" +
+            "    WHERE title LIKE CONCAT('%', #{keyword}, '%')\n" +
+            "    ORDER BY id DESC\n" +
+            "    LIMIT #{offset}, #{limit}")
+    List<Notes> findNotesByKeyword(@Param("keyword") String keyword, @Param("offset") int offset, @Param("limit") int limit);
+
 
     @Insert("INSERT INTO notes(title, content, created_at, updated_at) VALUES(#{title}, #{content}, NOW(), NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "id")
@@ -151,4 +156,7 @@ public interface NotesMapper {
 
     @Update("UPDATE notes SET title = #{title}, content = #{content}, updated_at = NOW() WHERE id = #{id}")
     int update(Notes note);
+
+    @Select("SELECT count(*) FROM notes WHERE title LIKE CONCAT('%', #{keyword}, '%')")
+    Integer getTotalNotesByKeyword(String keyword);
 }

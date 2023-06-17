@@ -25,6 +25,11 @@ public class NoteService {
         return notesMapper.findByPage(startIndex, pageSize);
     }
 
+    public List<Notes> findNotesByKeyword(String keyword, int pageNo, int pageSize) {
+        int offset = (pageNo - 1) * pageSize;
+        return notesMapper.findNotesByKeyword(keyword, offset, pageSize);
+    }
+
 
     public Notes save(Notes note) {
         if (note.getId() == null) {
@@ -44,5 +49,9 @@ public class NoteService {
         NotesExample exp = new NotesExample();
         exp.createCriteria().andCreatedAtBetween(d, dp);
         return notesMapper.selectByExampleWithBLOBs(exp);
+    }
+
+    public Integer getTotalNotesByKeyword(String keyword) {
+        return notesMapper.getTotalNotesByKeyword(keyword);
     }
 }
