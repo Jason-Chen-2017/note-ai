@@ -106,7 +106,7 @@
             "info": true,
             "autoWidth": true,
             "aLengthMenu": [10, 20, 50, 100, 200],
-            "processing": true,
+            // "processing": true,
             "stateSave": true,
             responsive: true,
             fixedHeader: true,
