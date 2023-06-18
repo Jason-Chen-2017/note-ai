@@ -115,17 +115,17 @@
                 {title: "ID", data: "id"},
                 {
                     title: "标题", data: "title", render: function (data, type, row) {
-                        return "<a href='/notes/" + row.id + "' class='btn btn-link'>" + row.title + "</a>";
+                        return "<a target='_blank' href='/notes/" + row.id + "' class='btn btn-link'>" + row.title + "</a>";
                     }
                 },
                 {
                     title: "内容", data: "content", render: function (data, type, row) {
                         var content = row.content;
                         if (content.length > 100) {
-                            content = content.substr(0, 100)
+                            content = content.substr(0, 100) + "..."
                         }
 
-                        return content + "...";
+                        return content;
                     }
                 },
                 {title: "创建时间", data: "createdAt"}

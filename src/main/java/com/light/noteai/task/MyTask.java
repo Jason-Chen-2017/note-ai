@@ -21,7 +21,7 @@ public class MyTask {
 
 
     @Autowired
-    private AIWriteBlogController AIWriteBlogController;
+    private AIWriteBlogController aIWriteBlogController;
 
 
     @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
@@ -92,7 +92,7 @@ public class MyTask {
     @Scheduled(cron = "0 */10 * * * ?") // 每隔10分钟执行一次
     public void WriteMDFiles() {
         try {
-            AIWriteBlogController.writeMDAll();
+            aIWriteBlogController.writeMDAll();
         } catch (Exception e) {
             System.out.println(e);
         }
