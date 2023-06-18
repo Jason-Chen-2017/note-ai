@@ -6,6 +6,7 @@ import com.light.noteai.model.Prompt;
 import com.light.noteai.service.NoteService;
 import com.light.noteai.task.MyTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -76,9 +78,15 @@ public class AIWriteBlogController {
         new Thread(() -> {
 
             List<Notes> notes = noteService.getAllNotes();
+            // 随机乱序一下
+            Collections.shuffle(notes);
+
             for (Notes note : notes) {
+
                 String title = note.getTitle();
                 String contentInitial = note.getContent();
+
+                // 如果文章还没有写过
                 if (Objects.equals(title, contentInitial)) {
                     String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
                     note.setContent(content);
