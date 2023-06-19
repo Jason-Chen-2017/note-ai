@@ -32,9 +32,13 @@ public class NoteService {
 
 
     public Notes save(Notes note) {
+        Date date = new Date();
         if (note.getId() == null) {
+            note.setCreatedAt(date);
+            note.setUpdatedAt(date);
             notesMapper.create(note);
         } else {
+            note.setUpdatedAt(date);
             notesMapper.update(note);
         }
         return note;

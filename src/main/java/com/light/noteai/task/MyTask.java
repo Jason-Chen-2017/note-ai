@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +50,9 @@ public class MyTask {
                     Notes note = new Notes();
                     note.setTitle(line);
                     note.setContent(line);
-                    note.setCreatedAt(new Date());
+                    Date date = new Date();
+                    note.setCreatedAt(date);
+                    note.setUpdatedAt(date);
                     noteService.save(note);
                 }
             }
@@ -57,12 +60,14 @@ public class MyTask {
     }
 
 
-    @Scheduled(cron = "0 0 */2 * * ?") // 每隔2h钟执行一次
+    @Scheduled(cron = "0 0 */1 * * ?") // 每隔2h执行一次
     public void WriteBlog() {
         // 定时任务:
         System.out.println("WriteBlog定时任务执行时间：" + new Date());
 
         List<Notes> notes = noteService.getAllNotes();
+        // 随机乱序一下
+        Collections.shuffle(notes);
 
         for (Notes note : notes) {
 

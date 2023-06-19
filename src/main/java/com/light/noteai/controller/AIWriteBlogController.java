@@ -51,7 +51,9 @@ public class AIWriteBlogController {
                 Notes note = new Notes();
                 note.setTitle(line);
                 note.setContent(line);
-                note.setCreatedAt(new Date());
+                Date createdAt = new Date();
+                note.setCreatedAt(createdAt);
+                note.setUpdatedAt(createdAt);
                 noteService.save(note);
             }
 
@@ -90,6 +92,7 @@ public class AIWriteBlogController {
                 if (Objects.equals(title, contentInitial)) {
                     String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
                     note.setContent(content);
+                    note.setUpdatedAt(new Date());
 
                     System.out.println(content);
 
@@ -148,7 +151,8 @@ public class AIWriteBlogController {
             for (Notes note : notes) {
                 String title = note.getTitle();
                 String content = note.getContent();
-                Date date = note.getCreatedAt();
+
+                Date date = note.getUpdatedAt();
 
                 String d = new SimpleDateFormat("yyyyMMdd").format(date);
 
