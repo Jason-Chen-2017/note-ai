@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Component
 public class MyTask {
@@ -25,7 +22,7 @@ public class MyTask {
     private AIWriteBlogController aIWriteBlogController;
 
 
-    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
     public void AIGC() {
         // 定时任务:
         System.out.println("AIGC定时任务执行时间：" + new Date());
@@ -35,8 +32,15 @@ public class MyTask {
     }
 
     public void doAutoAIGC() {
-        for (String topic : NoteAITopics.getTopics()) {
-            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言，请帮我拟定：" + topic + " 领域的100篇热门博客文章标题。";
+        HashSet<String> topics = NoteAITopics.getTopics();
+
+        List<String> topicsList = new ArrayList<>();
+        topicsList.addAll(topics);
+
+        Collections.shuffle(topicsList);
+
+        for (String topic : topicsList) {
+            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的20篇热门博客文章标题（不要重复）。";
 
             System.out.println(prompt);
 
