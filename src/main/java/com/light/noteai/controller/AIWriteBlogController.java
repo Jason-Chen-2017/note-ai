@@ -74,39 +74,14 @@ public class AIWriteBlogController {
         return "done";
     }
 
-    @GetMapping("/noteAI")
-    public String noteAI() {
+    @GetMapping("/WriteAllBlog")
+    public String WriteAllBlog() {
 
         new Thread(() -> {
 
-            List<Notes> notes = noteService.getAllNotes();
-            // 随机乱序一下
-            Collections.shuffle(notes);
-
-            for (Notes note : notes) {
-
-                String title = note.getTitle();
-                String contentInitial = note.getContent();
-
-                // 如果文章还没有写过
-                if (Objects.equals(title, contentInitial)) {
-                    String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
-                    note.setContent(content);
-                    note.setUpdatedAt(new Date());
-
-                    System.out.println(content);
-
-                    try {
-                        noteService.save(note);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-
-                }
-            }
+            myTask.WriteAllBlog();
 
         }).start();
-
 
         return "done";
     }

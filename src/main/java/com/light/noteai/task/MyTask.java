@@ -49,7 +49,7 @@ public class MyTask {
 
                 System.out.println(line);
 
-                if (!line.trim().equals("")) {
+                if (line.trim().length() > 10) {
                     Notes note = new Notes();
                     note.setTitle(line);
                     note.setContent(line);
@@ -63,10 +63,10 @@ public class MyTask {
     }
 
 
-    @Scheduled(cron = "0 0 */1 * * ?") // 每隔2h执行一次
-    public void WriteBlog() {
+    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    public void WriteAllBlog() {
         // 定时任务:
-        System.out.println("WriteBlog定时任务执行时间：" + new Date());
+        System.out.println("WriteBlog 任务执行时间：" + new Date());
 
         List<Notes> notes = noteService.getAllNotes();
         // 随机乱序一下
@@ -75,7 +75,9 @@ public class MyTask {
         for (Notes note : notes) {
 
             String title = note.getTitle();
-            String contentInitial = note.getContent();
+            Integer id = note.getId();
+            Notes noteNewest = noteService.findById(id);
+            String contentInitial = noteNewest.getContent();
 
             if (Objects.equals(title, contentInitial)) {
 
