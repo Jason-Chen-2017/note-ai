@@ -34,8 +34,7 @@ public class MyTask {
     public void doAutoAIGC() {
         HashSet<String> topics = NoteAITopics.getTopics();
 
-        List<String> topicsList = new ArrayList<>();
-        topicsList.addAll(topics);
+        List<String> topicsList = new ArrayList<>(topics);
 
         Collections.shuffle(topicsList);
 
