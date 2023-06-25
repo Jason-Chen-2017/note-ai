@@ -1,5 +1,6 @@
 package com.light.noteai.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,4 +17,11 @@ public class DateUtils {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         return calendar.getTime();
     }
+
+    public static String formatDate(Date d) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(d);
+    }
+
+
 }

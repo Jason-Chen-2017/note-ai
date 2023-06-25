@@ -128,7 +128,8 @@
                         return content;
                     }
                 },
-                {title: "创建时间", data: "createdAt"}
+                {title: "创建时间", data: "createdAt"},
+                {title: "更新时间", data: "updatedAt"}
             ],
 
             language: {

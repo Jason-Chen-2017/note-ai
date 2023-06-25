@@ -10,10 +10,10 @@ import java.util.*
 // 随机返回 apiList 中的一个元素
 fun Get_CHATGLM_LOCAL_API_Randomly(): String {
     val API_LIST = listOf(
-        "http://127.0.0.1:8000",
+        "http://127.0.0.1:8001",
         "http://127.0.0.1:8002",
-        "http://127.0.0.1:8003",
-        "http://127.0.0.1:8004",
+//        "http://127.0.0.1:8003",
+//        "http://127.0.0.1:8004",
     )
     val rand = Random()
     val index = rand.nextInt(API_LIST.size) // 0,1,2,3 randomly
@@ -122,7 +122,7 @@ ${text}
 
     private fun buildBlogPrompt(prompt: String): String {
         val InputPrompt = """
-         你是一位人工智能专家,程序员,软件架构师,CTO，请以《${prompt}》为标题，写一篇有深度有思考有见解的专业的技术博客文章， 字数要求不少于5000字。文章目录如下：
+         你是一位人工智能专家,程序员,软件架构师,CTO，请以《${prompt}》为标题，写一篇有深度有思考有见解的专业的技术博客文章， 文章目录如下：
 
 ## 1. 引言
 
@@ -133,7 +133,7 @@ ${text}
 ## 2. 技术原理及概念
 
 - 2.1. 基本概念解释
-- 2.2. 技术原理介绍
+- 2.2. 技术原理介绍:算法原理，操作步骤，数学公式等
 - 2.3. 相关技术比较
 
 ## 3. 实现步骤与流程
@@ -165,6 +165,8 @@ ${text}
 
 
 请保持逻辑清晰、结构紧凑，以便读者更容易理解和掌握所讲述的技术知识。
+文章字数要求：文章字数大于 8000 字。
+文章格式请严格按照目录来写，使用markdown格式。数学公式使用 latex 格式$$
              
          """.trimIndent()
 

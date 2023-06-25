@@ -83,7 +83,9 @@ public class MyTask {
 
                 String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
 
-                System.out.println(content);
+                System.out.println("标题:" + title);
+                System.out.println("内容:" + content);
+                System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
 
                 note.setContent(content);
                 note.setUpdatedAt(new Date());

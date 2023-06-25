@@ -1,7 +1,9 @@
 package com.light.noteai.controller;
 
+import com.light.noteai.converter.NotesVOConverter;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.service.NoteService;
+import com.light.noteai.vo.NotesVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +40,7 @@ public class NotesAPIController {
 
         pageNotes.recordsTotal = recordsTotal; // 总记录数
         pageNotes.recordsFiltered = recordsFiltered; // 经过过滤后的记录数
-        pageNotes.data = data;
+        pageNotes.data = NotesVOConverter.convertVOList(data);
         pageNotes.draw = draw;
         return pageNotes;
     }
@@ -51,7 +53,7 @@ public class NotesAPIController {
      * data：当前页的记录数据，是一个数组，每个元素代表一条记录，包含需要显示的字段。
      */
     class PageNotes {
-        List<Notes> data;
+        List<NotesVO> data;
         Integer recordsTotal;
         Integer recordsFiltered;
         Integer draw;
@@ -64,11 +66,11 @@ public class NotesAPIController {
             this.draw = draw;
         }
 
-        public List<Notes> getData() {
+        public List<NotesVO> getData() {
             return data;
         }
 
-        public void setData(List<Notes> data) {
+        public void setData(List<NotesVO> data) {
             this.data = data;
         }
 
