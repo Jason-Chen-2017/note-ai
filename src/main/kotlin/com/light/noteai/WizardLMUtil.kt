@@ -94,8 +94,9 @@ object WizardLMUtil {
             val completeText =
                 """
 作者：禅与计算机程序设计艺术                    
-                
-                
+
+# 1.简介
+         
 ${text}
 
 """
@@ -128,7 +129,7 @@ ${text}
          # 6.附录常见问题与解答
          这6大部分。文章字数大于8000字。使用markdown格式。下面我们开始写文章的全部内容。
          # ${prompt}
-         # 1.背景介绍
+         # 1.简介
          
          """.trimIndent()
 
