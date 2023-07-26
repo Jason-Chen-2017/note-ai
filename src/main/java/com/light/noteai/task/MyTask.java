@@ -40,7 +40,7 @@ public class MyTask {
         Collections.shuffle(topicsList);
 
         for (String topic : topicsList) {
-            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的20篇热门博客文章标题,不要重复,标题中不要有特殊符号。";
+            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的20篇热门博客文章标题,每个标题放到单独的一行。";
 
             System.out.println(prompt);
 
@@ -58,7 +58,11 @@ public class MyTask {
                     Date date = new Date();
                     note.setCreatedAt(date);
                     note.setUpdatedAt(date);
-                    noteService.save(note);
+                    try {
+                        noteService.save(note);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
             }
         }
