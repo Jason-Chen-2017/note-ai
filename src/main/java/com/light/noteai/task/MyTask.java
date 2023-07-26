@@ -1,6 +1,5 @@
 package com.light.noteai.task;
 
-import com.light.noteai.ChatGLMUtil;
 import com.light.noteai.WizardLMUtil;
 import com.light.noteai.constant.NoteAITopics;
 import com.light.noteai.controller.AIWriteBlogController;
@@ -10,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Component
 public class MyTask {
@@ -45,7 +47,7 @@ public class MyTask {
 
                 System.out.println(line);
 
-                if (line.trim().length() > 10) {
+                if (isGoodTitle(line)) {
                     Notes note = new Notes();
                     note.setTitle(line);
                     note.setContent(line);
@@ -60,6 +62,27 @@ public class MyTask {
                 }
             }
         }
+    }
+
+    private static boolean isGoodTitle(String line) {
+        line = line.trim();
+        return line.length() > 10 &&
+                !line.contains("热门博客文章标题") &&
+                !line.contains("文章") &&
+                !line.contains("作者") &&
+                !line.contains("意见或建议") &&
+                !line.contains("欢迎") &&
+                !line.contains("读者") &&
+                !line.contains("https://") &&
+                !line.contains("Office") &&
+                !line.contains("#") &&
+                !line.contains("@") &&
+                !line.contains("<") &&
+                !line.contains(">") &&
+                !line.contains("）") &&
+                !line.contains("（") &&
+                !line.contains("|")
+                ;
     }
 
 
