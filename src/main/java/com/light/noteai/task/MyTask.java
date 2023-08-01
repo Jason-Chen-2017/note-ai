@@ -70,10 +70,23 @@ public class MyTask {
                 !line.contains("热门博客文章标题") &&
                 !line.contains("文章") &&
                 !line.contains("作者") &&
+                !line.contains("更新") &&
+                !line.contains("发布时间") &&
+                !line.contains("包括但不限于") &&
+                !line.contains("返回顶部") &&
+                !line.contains("QQ群") &&
+                !line.contains("来自") &&
+                !line.contains("本文") &&
+                !line.contains("打印") &&
+                !line.contains("谢谢") &&
+                !line.contains("您好") &&
+                !line.contains("公众号") &&
+                !line.contains("侵权") &&
                 !line.contains("意见或建议") &&
                 !line.contains("欢迎") &&
                 !line.contains("读者") &&
                 !line.contains("https://") &&
+                !line.contains("http://") &&
                 !line.contains("Office") &&
                 !line.contains("#") &&
                 !line.contains("@") &&

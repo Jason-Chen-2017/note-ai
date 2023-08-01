@@ -5,6 +5,7 @@ import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.model.Prompt;
 import com.light.noteai.service.NoteService;
 import com.light.noteai.task.MyTask;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/ai/")
@@ -145,24 +144,8 @@ public class AIWriteBlogController {
     // 把content字符串写入 ${mdFilePath}/${title}.md 文件中
     private void WriteMD(String mdFilePath, String title, String content) {
 
-        // 123.标题, 把标题前面的数字和.去掉：
-        // 1.标题A =>  标题A
-        // 223.标题B => 标题B
-        title = replaceStartDigitAndDot(title);
-        // 去掉标题中的引号和 - 等特殊字符
-        title = title.replaceAll("\"", "");
-        title = title.replaceAll("“", "");
-        title = title.replaceAll(" ", "");
-        title = title.replaceAll("-", "");
-        title = title.replaceAll("》", "");
-        title = title.replaceAll("《", "");
-        title = title.replaceAll("]", "");
-        title = title.replaceAll("\\[", "");
-
-        // 避免超长标题
-        if (title.length() > 55) {
-            title = title.substring(0, 55);
-        }
+        title = processTitle(title);
+        content = processContent(content);
 
         try {
             File fileDir = new File(mdFilePath);
@@ -183,6 +166,45 @@ public class AIWriteBlogController {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    @NotNull
+    private static String processTitle(String title) {
+        // 123.标题, 把标题前面的数字和.去掉：
+        // 1.标题A =>  标题A
+        // 223.标题B => 标题B
+        title = replaceStartDigitAndDot(title);
+        // 去掉标题中的引号和 - 等特殊字符
+        title = title.replaceAll("\"", "");
+        title = title.replaceAll("“", "");
+        title = title.replaceAll("”", "");
+        title = title.replaceAll("-", "");
+        title = title.replaceAll("》", "");
+        title = title.replaceAll("《", "");
+        title = title.replaceAll("]", "");
+        title = title.replaceAll("\\[", "");
+
+        // 避免超长标题
+        if (title.length() > 55) {
+            title = title.substring(0, 55);
+        }
+        return title;
+    }
+
+    @NotNull
+    private static String processContent(String content) {
+        String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
+        // 将字符串分割为行
+        String[] lines = content.split("\\r?\\n");
+
+        // 筛选出不匹配正则表达式的行
+        String[] filteredLines = Arrays.stream(lines)
+                .filter(line -> !Pattern.matches(pattern, line))
+                .toArray(String[]::new);
+
+        // 将筛选后的行重新组合为字符串
+        String result = String.join("\n", filteredLines);
+        return result;
     }
 
     /**
