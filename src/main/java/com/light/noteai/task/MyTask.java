@@ -36,7 +36,7 @@ public class MyTask {
 
     public void doAutoAIGC() {
         for (String topic : NoteAITopics.topicsArray) {
-            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的10篇热门博客文章标题,每个标题放到单独的一行。";
+            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的10篇热门博客文章标题,每个标题放到单独的一行。只需要标题就可以了。不用多余的内容。";
 
             System.out.println(prompt);
 
