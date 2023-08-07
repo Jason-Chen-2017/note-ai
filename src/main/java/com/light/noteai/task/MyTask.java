@@ -70,10 +70,23 @@ public class MyTask {
                 !line.contains("热门博客文章标题") &&
                 !line.contains("文章") &&
                 !line.contains("作者") &&
+                !line.contains("Title") &&
+                !line.contains("祝愿大家") &&
+                !line.contains("2020") &&
+                !line.contains("于") &&
+                !line.contains("如需了解") &&
+                !line.contains("如果你认为") &&
+                !line.contains("Best regards") &&
+                !line.contains("备注") &&
                 !line.contains("更新") &&
+                !line.contains("Sent:") &&
+                !line.contains("Thanks") &&
                 !line.contains("发布时间") &&
                 !line.contains("包括但不限于") &&
                 !line.contains("返回顶部") &&
+                !line.contains("本帖") &&
+                !line.contains("import") &&
+                !line.contains("=") &&
                 !line.contains("QQ群") &&
                 !line.contains("来自") &&
                 !line.contains("本文") &&
@@ -88,6 +101,7 @@ public class MyTask {
                 !line.contains("https://") &&
                 !line.contains("http://") &&
                 !line.contains("Office") &&
+                !line.contains("png") &&
                 !line.contains("#") &&
                 !line.contains("@") &&
                 !line.contains("<") &&
