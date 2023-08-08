@@ -1,13 +1,13 @@
 package com.light.noteai.controller;
 
 import com.light.noteai.ChatGLMUtil;
+import com.light.noteai.WizardLMUtil;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.model.Prompt;
 import com.light.noteai.service.NoteService;
 import com.light.noteai.task.MyTask;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -126,6 +126,11 @@ public class AIWriteBlogController {
                 String title = note.getTitle();
                 String content = note.getContent();
 
+                // 文章内容每行的行首空格处理
+                content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+                // 被\t,\n错误替换的latex公式修复
+                content = WizardLMUtil.INSTANCE.fixLatex(content);
+
                 Date date = note.getUpdatedAt();
 
                 String d = new SimpleDateFormat("yyyyMMdd").format(date);
@@ -193,6 +198,9 @@ public class AIWriteBlogController {
 
     @NotNull
     private static String processContent(String content) {
+        // 文章内容每行的行首空格处理
+        content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+
         String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
         // 将字符串分割为行
         String[] lines = content.split("\\r?\\n");
