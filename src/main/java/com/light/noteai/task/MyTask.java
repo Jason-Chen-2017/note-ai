@@ -73,6 +73,17 @@ public class MyTask {
                 !line.contains("作者") &&
                 !line.contains("Title") &&
                 !line.contains("祝愿大家") &&
+                !line.contains("感谢") &&
+                !line.contains("ISBN号") &&
+                !line.contains(".com") &&
+                !line.contains("Keywords:") &&
+                !line.contains("Wechat") &&
+                !line.contains("希望") &&
+                !line.contains("大家") &&
+                !line.contains("收获") &&
+                !line.contains("校对") &&
+                !line.contains("Press") &&
+                !line.contains("email") &&
 
                 !line.contains("2020") &&
                 !line.contains("于") &&
