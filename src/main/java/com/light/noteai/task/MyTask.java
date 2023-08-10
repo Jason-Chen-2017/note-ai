@@ -46,6 +46,7 @@ public class MyTask {
             for (String line : lines.split("\n")) {
 
                 System.out.println(line);
+                line = line.trim();
 
                 if (isGoodTitle(line)) {
                     Notes note = new Notes();
@@ -72,6 +73,7 @@ public class MyTask {
                 !line.contains("作者") &&
                 !line.contains("Title") &&
                 !line.contains("祝愿大家") &&
+
                 !line.contains("2020") &&
                 !line.contains("于") &&
                 !line.contains("如需了解") &&
@@ -87,13 +89,20 @@ public class MyTask {
                 !line.contains("本帖") &&
                 !line.contains("import") &&
                 !line.contains("=") &&
+
+                !line.contains("知乎") &&
                 !line.contains("QQ群") &&
+                !line.contains("头条号") &&
+                !line.contains("微信") &&
+                !line.contains("简书") &&
+                !line.contains("公众号") &&
+
                 !line.contains("来自") &&
                 !line.contains("本文") &&
                 !line.contains("打印") &&
                 !line.contains("谢谢") &&
                 !line.contains("您好") &&
-                !line.contains("公众号") &&
+
                 !line.contains("侵权") &&
                 !line.contains("意见或建议") &&
                 !line.contains("欢迎") &&
@@ -101,6 +110,8 @@ public class MyTask {
                 !line.contains("https://") &&
                 !line.contains("http://") &&
                 !line.contains("Office") &&
+                !line.contains("blog") &&
+                !line.contains("article") &&
                 !line.contains("png") &&
                 !line.contains("#") &&
                 !line.contains("@") &&
@@ -108,6 +119,7 @@ public class MyTask {
                 !line.contains(">") &&
                 !line.contains("）") &&
                 !line.contains("（") &&
+                !line.contains("、") &&
                 !line.contains("|")
                 ;
     }
