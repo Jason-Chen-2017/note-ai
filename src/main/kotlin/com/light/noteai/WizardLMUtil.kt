@@ -89,14 +89,14 @@ object WizardLMUtil {
             var text = WizardLMResponse.results[0].text
             println("text=$text")
 
-            text = replaceNewLineAndTab(text)
+//            text = replaceNewLineAndTab(text)
 
             val completeText =
                 """
 作者：禅与计算机程序设计艺术                    
 
 # 1.简介
-         
+  
 ${text}
 
 """

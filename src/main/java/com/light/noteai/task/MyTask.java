@@ -71,6 +71,10 @@ public class MyTask {
                 !line.contains("热门博客文章标题") &&
                 !line.contains("文章") &&
                 !line.contains("作者") &&
+                !line.contains("审稿") &&
+                !line.contains("地址") &&
+                !line.contains("邮件") &&
+                !line.contains("联系") &&
                 !line.contains("Title") &&
                 !line.contains("祝愿大家") &&
                 !line.contains("感谢") &&
@@ -79,6 +83,8 @@ public class MyTask {
                 !line.contains("Keywords:") &&
                 !line.contains("Wechat") &&
                 !line.contains("希望") &&
+                !line.contains("建议") &&
+                !line.contains("个人") &&
                 !line.contains("大家") &&
                 !line.contains("收获") &&
                 !line.contains("校对") &&
@@ -100,9 +106,17 @@ public class MyTask {
                 !line.contains("本帖") &&
                 !line.contains("import") &&
                 !line.contains("=") &&
+                !line.contains("———") &&
+                !line.contains("图片来源") &&
+                !line.contains("By：") &&
+                !line.contains("期待您") &&
+                !line.contains("活动") &&
+                !line.contains("参考") &&
+                !line.contains("此外") &&
 
                 !line.contains("知乎") &&
                 !line.contains("QQ群") &&
+                !line.contains("QQ") &&
                 !line.contains("头条号") &&
                 !line.contains("微信") &&
                 !line.contains("简书") &&

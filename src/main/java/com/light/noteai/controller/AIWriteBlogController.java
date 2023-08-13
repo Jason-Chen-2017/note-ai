@@ -1,6 +1,5 @@
 package com.light.noteai.controller;
 
-import com.light.noteai.ChatGLMUtil;
 import com.light.noteai.WizardLMUtil;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.model.Prompt;
@@ -15,7 +14,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @RestController
@@ -29,18 +31,18 @@ public class AIWriteBlogController {
 
     @PostMapping("/writeBlog")
     public String writeBlog(@RequestBody Prompt prompt) {
-        return ChatGLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
+        return WizardLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
     }
 
     @PostMapping("/complete")
     public String complete(@RequestBody Prompt prompt) {
-        return ChatGLMUtil.INSTANCE.Complete(prompt.getPrompt());
+        return WizardLMUtil.INSTANCE.Complete(prompt.getPrompt());
     }
 
     @PostMapping("/aigc")
     public String aigc(@RequestBody Prompt prompt) {
 
-        String lines = ChatGLMUtil.INSTANCE.Complete(prompt.getPrompt());
+        String lines = WizardLMUtil.INSTANCE.Complete(prompt.getPrompt());
 
         for (String line : lines.split("\n")) {
 
@@ -89,7 +91,6 @@ public class AIWriteBlogController {
     String mdFilePath = "/home/me/tools/pycnblog/articles/";
 
     /**
-     *
      * @param date 20230616
      * @return
      */
@@ -126,10 +127,11 @@ public class AIWriteBlogController {
                 String title = note.getTitle();
                 String content = note.getContent();
 
-                // 文章内容每行的行首空格处理
-                content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
-                // 被\t,\n错误替换的latex公式修复
-                content = WizardLMUtil.INSTANCE.fixLatex(content);
+//  在写文章的时候已经处理了，所以这里不用重复处理了。
+//                // 文章内容每行的行首空格处理
+//                content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+//                // 被\t,\n错误替换的latex公式修复
+//                content = WizardLMUtil.INSTANCE.fixLatex(content);
 
                 Date date = note.getUpdatedAt();
 
@@ -154,7 +156,7 @@ public class AIWriteBlogController {
 
         try {
             File fileDir = new File(mdFilePath);
-            if(!fileDir.exists()){
+            if (!fileDir.exists()) {
                 fileDir.mkdirs();
             }
 
@@ -175,6 +177,10 @@ public class AIWriteBlogController {
 
     @NotNull
     private static String processTitle(String title) {
+
+        // 去除前后空格
+        title = title.trim();
+
         // 123.标题, 把标题前面的数字和.去掉：
         // 1.标题A =>  标题A
         // 223.标题B => 标题B
@@ -182,6 +188,8 @@ public class AIWriteBlogController {
         // 去掉标题中的引号和 - 等特殊字符
         title = title.replaceAll("\"", "");
         title = title.replaceAll("“", "");
+        title = title.replaceAll("、", "");
+        title = title.replaceAll("\\*", "");
         title = title.replaceAll("”", "");
         title = title.replaceAll("-", "");
         title = title.replaceAll("》", "");
@@ -199,7 +207,7 @@ public class AIWriteBlogController {
     @NotNull
     private static String processContent(String content) {
         // 文章内容每行的行首空格处理
-        content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+//        content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
 
         String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
         // 将字符串分割为行
