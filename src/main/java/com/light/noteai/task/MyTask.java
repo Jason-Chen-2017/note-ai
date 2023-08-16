@@ -96,6 +96,7 @@ public class MyTask {
                 !line.contains("如需了解") &&
                 !line.contains("如果你认为") &&
                 !line.contains("Best regards") &&
+                !line.contains("Sincerely") &&
                 !line.contains("备注") &&
                 !line.contains("更新") &&
                 !line.contains("Sent:") &&
@@ -105,6 +106,7 @@ public class MyTask {
                 !line.contains("返回顶部") &&
                 !line.contains("本帖") &&
                 !line.contains("import") &&
+                !line.contains("if ") &&
                 !line.contains("=") &&
                 !line.contains("———") &&
                 !line.contains("图片来源") &&
@@ -168,29 +170,30 @@ public class MyTask {
         for (Notes note : notes) {
 
             String title = note.getTitle();
-            Integer id = note.getId();
-            Notes noteNewest = noteService.findById(id);
-            String contentInitial = noteNewest.getContent();
+            if (isGoodTitle(title)) {
+                Integer id = note.getId();
+                Notes noteNewest = noteService.findById(id);
+                String contentInitial = noteNewest.getContent();
 
-            if (Objects.equals(title, contentInitial)) {
-
+                if (Objects.equals(title, contentInitial)) {
 //                String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
-                String content = WizardLMUtil.INSTANCE.WriteBlog(title);
+                    String content = WizardLMUtil.INSTANCE.WriteBlog(title);
 
-                System.out.println("标题:" + title);
-                System.out.println("内容:" + content);
-                System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
+                    System.out.println("标题:" + title);
+                    System.out.println("内容:" + content);
+                    System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
 
-                note.setContent(content);
-                note.setUpdatedAt(new Date());
+                    note.setContent(content);
+                    note.setUpdatedAt(new Date());
 
-                try {
-                    noteService.save(note);
-                } catch (Exception e) {
-                    System.out.println(e);
+                    try {
+                        noteService.save(note);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
-
             }
+
         }
     }
 
