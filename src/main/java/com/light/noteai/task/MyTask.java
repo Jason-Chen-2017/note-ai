@@ -127,6 +127,12 @@ public class MyTask {
                 !line.contains("打印") &&
                 !line.contains("谢谢") &&
                 !line.contains("您好") &&
+                !line.contains("编辑：") &&
+                !line.contains("审稿：") &&
+                !line.contains("Date:") &&
+                !line.contains("希望能够") &&
+                !line.contains("下面分享") &&
+                !line.contains("Best wishes") &&
 
                 !line.contains("侵权") &&
                 !line.contains("意见或建议") &&
