@@ -97,6 +97,25 @@ public class MyTask {
                 !line.contains("如果你认为") &&
                 !line.contains("Best regards") &&
                 !line.contains("Sincerely") &&
+                !line.contains("Glad to") &&
+                !line.contains("在这里") &&
+                !line.contains("其中") &&
+                !line.contains("接下来") &&
+                !line.contains("Note:") &&
+                !line.contains("blog post") &&
+                !line.contains("Posted") &&
+                !line.contains("关键词") &&
+                !line.contains("Author") &&
+                !line.contains("阅读") &&
+                !line.contains("博客") &&
+                !line.contains("祝") &&
+                !line.contains("def") &&
+                !line.contains("P.S.") &&
+                !line.contains("答") &&
+                !line.contains("年") &&
+                !line.contains("月") &&
+                !line.contains("日") &&
+
                 !line.contains("备注") &&
                 !line.contains("更新") &&
                 !line.contains("Sent:") &&
@@ -106,6 +125,9 @@ public class MyTask {
                 !line.contains("返回顶部") &&
                 !line.contains("本帖") &&
                 !line.contains("import") &&
+                !line.contains("print") &&
+                !line.contains("return") &&
+                !line.contains("class") &&
                 !line.contains("if ") &&
                 !line.contains("=") &&
                 !line.contains("———") &&
