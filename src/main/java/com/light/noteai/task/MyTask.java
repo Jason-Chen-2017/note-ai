@@ -78,6 +78,7 @@ public class MyTask {
                 !line.contains("Title") &&
                 !line.contains("祝愿大家") &&
                 !line.contains("感谢") &&
+                !line.contains("得到") &&
                 !line.contains("ISBN号") &&
                 !line.contains(".com") &&
                 !line.contains("Keywords:") &&
@@ -108,7 +109,10 @@ public class MyTask {
                 !line.contains("Author") &&
                 !line.contains("阅读") &&
                 !line.contains("博客") &&
+                !line.contains("页数") &&
+                !line.contains("浏览量") &&
                 !line.contains("祝") &&
+                !line.contains("根据需要") &&
                 !line.contains("def") &&
                 !line.contains("P.S.") &&
                 !line.contains("答") &&
@@ -127,7 +131,12 @@ public class MyTask {
                 !line.contains("import") &&
                 !line.contains("print") &&
                 !line.contains("return") &&
+                !line.contains("void") &&
                 !line.contains("class") &&
+                !line.contains("catch") &&
+                !line.contains("date") &&
+                !line.contains("Date") &&
+                !line.contains("private") &&
                 !line.contains("if ") &&
                 !line.contains("=") &&
                 !line.contains("———") &&
@@ -137,6 +146,15 @@ public class MyTask {
                 !line.contains("活动") &&
                 !line.contains("参考") &&
                 !line.contains("此外") &&
+                !line.contains("评论") &&
+                !line.contains("浏览") &&
+                !line.contains("来源") &&
+                !line.contains("PPT") &&
+                !line.contains("演讲") &&
+                !line.contains("分钟") &&
+                !line.contains("最后") &&
+                !line.contains("目录") &&
+                !line.contains("如下") &&
 
                 !line.contains("知乎") &&
                 !line.contains("QQ群") &&
