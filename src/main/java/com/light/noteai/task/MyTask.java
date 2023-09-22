@@ -65,6 +65,22 @@ public class MyTask {
         }
     }
 
+    public void doAutoTitle() {
+        for (String title : NoteAITopics.titleArray) {
+            Notes note = new Notes();
+            note.setTitle(title);
+            note.setContent(title);
+            Date date = new Date();
+            note.setCreatedAt(date);
+            note.setUpdatedAt(date);
+            try {
+                noteService.save(note);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
     private static boolean isGoodTitle(String line) {
         line = line.trim();
         return line.length() > 10 &&

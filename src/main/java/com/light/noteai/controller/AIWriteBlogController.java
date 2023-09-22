@@ -75,6 +75,18 @@ public class AIWriteBlogController {
         return "done";
     }
 
+    @GetMapping("/auto_title")
+    public String auto_title() {
+
+        new Thread(() -> {
+
+            myTask.doAutoTitle();
+
+        }).start();
+
+        return "done";
+    }
+
     @GetMapping("/WriteAllBlog")
     public String WriteAllBlog() {
 
