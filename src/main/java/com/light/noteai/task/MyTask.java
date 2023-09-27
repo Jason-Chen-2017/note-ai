@@ -1,6 +1,6 @@
 package com.light.noteai.task;
 
-import com.light.noteai.WizardLMUtil;
+import com.light.noteai.QianWenUtil;
 import com.light.noteai.constant.NoteAITopics;
 import com.light.noteai.controller.AIWriteBlogController;
 import com.light.noteai.mapper.po.Notes;
@@ -41,7 +41,9 @@ public class MyTask {
             System.out.println(prompt);
 
 //            String lines = ChatGLMUtil.INSTANCE.Complete(prompt);
-            String lines = WizardLMUtil.INSTANCE.Complete(prompt);
+//            String lines = WizardLMUtil.INSTANCE.Complete(prompt);
+            String lines = QianWenUtil.INSTANCE.Complete(prompt);
+
 
             for (String line : lines.split("\n")) {
 
@@ -233,7 +235,8 @@ public class MyTask {
 
                 if (Objects.equals(title, contentInitial)) {
 //                String content = ChatGLMUtil.INSTANCE.WriteBlog(title);
-                    String content = WizardLMUtil.INSTANCE.WriteBlog(title);
+//                    String content = WizardLMUtil.INSTANCE.WriteBlog(title);
+                    String content = QianWenUtil.INSTANCE.WriteBlog(title);
 
                     System.out.println("标题:" + title);
                     System.out.println("内容:" + content);
