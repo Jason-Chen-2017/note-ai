@@ -32,23 +32,23 @@ object QianWenUtil {
 
     /*
     {"prompt":"现在你是一位人工智能专家,程序员,软件架构师,CTO，请以《了解现代编程语言和框架：Java、Kotlin和React Native》为标题，写一篇有深度有思考有见解的专业的技术博客文章， 文章核心内容包含：1.背景介绍，2.文章目的，3.目标受众，4.基本概念术语说明，5.核心算法原理数学公式和具体操作步骤，6.代码实例和解释说明，7.未来发展趋势与挑战，8.附录常见问题与解答这8大部分。文章字数大于 8000 字。使用markdown格式。标题：了解现代编程语言和框架：Java、Kotlin和React Native",
-    "max_new_tokens":8192,"max_context_length":8192,"truncation_length":8192}
+    "max_new_tokens":5120,"max_context_length":5120,"truncation_length":5120}
      */
     fun WriteBlog(prompt: String): String {
         val data = mutableMapOf<String, Any>()
         data["prompt"] = buildBlogPrompt(prompt)
         data["temperature"] = 0.95
-        data["max_new_tokens"] = 8192
-        data["max_context_length"] = 8192
-        data["truncation_length"] = 8192
+        data["max_new_tokens"] = 5120
+        data["max_context_length"] = 5120
+        data["truncation_length"] = 5120
         data["top_p"] = 0.9
 
         val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
-            .timeout(600 * 1000)
+            .timeout(1200 * 1000)
             .jsonBody(Gson().toJson(data).toString())
-            .timeout(600 * 1000)
-            .timeoutRead(600 * 1000)
+            .timeout(1200 * 1000)
+            .timeoutRead(1200 * 1000)
             .responseString()
 
         val res = result.get()
@@ -61,17 +61,17 @@ object QianWenUtil {
         val data = mutableMapOf<String, Any>()
         data["prompt"] = prompt
         data["temperature"] = 0.95
-        data["max_new_tokens"] = 8192
-        data["max_context_length"] = 8192
-        data["truncation_length"] = 8192
+        data["max_new_tokens"] = 5120
+        data["max_context_length"] = 5120
+        data["truncation_length"] = 5120
         data["top_p"] = 0.9
 
         val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
-            .timeout(600 * 1000)
+            .timeout(1200 * 1000)
             .jsonBody(Gson().toJson(data).toString())
-            .timeout(600 * 1000)
-            .timeoutRead(600 * 1000)
+            .timeout(1200 * 1000)
+            .timeoutRead(1200 * 1000)
             .responseString()
 
         val res = result.get()

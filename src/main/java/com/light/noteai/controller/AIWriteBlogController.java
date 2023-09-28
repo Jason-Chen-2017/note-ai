@@ -1,6 +1,6 @@
 package com.light.noteai.controller;
 
-import com.light.noteai.WizardLMUtil;
+import com.light.noteai.LLMUtil;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.model.Prompt;
 import com.light.noteai.service.NoteService;
@@ -31,18 +31,18 @@ public class AIWriteBlogController {
 
     @PostMapping("/writeBlog")
     public String writeBlog(@RequestBody Prompt prompt) {
-        return WizardLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
+        return LLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
     }
 
     @PostMapping("/complete")
     public String complete(@RequestBody Prompt prompt) {
-        return WizardLMUtil.INSTANCE.Complete(prompt.getPrompt());
+        return LLMUtil.INSTANCE.Complete(prompt.getPrompt());
     }
 
     @PostMapping("/aigc")
     public String aigc(@RequestBody Prompt prompt) {
 
-        String lines = WizardLMUtil.INSTANCE.Complete(prompt.getPrompt());
+        String lines = LLMUtil.INSTANCE.Complete(prompt.getPrompt());
 
         for (String line : lines.split("\n")) {
 
@@ -141,9 +141,9 @@ public class AIWriteBlogController {
 
 //  在写文章的时候已经处理了，所以这里不用重复处理了。
 //                // 文章内容每行的行首空格处理
-//                content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+//                content = LLMUtil.INSTANCE.trimHeadSpaces(content);
 //                // 被\t,\n错误替换的latex公式修复
-//                content = WizardLMUtil.INSTANCE.fixLatex(content);
+//                content = LLMUtil.INSTANCE.fixLatex(content);
 
                 Date date = note.getUpdatedAt();
 
@@ -219,7 +219,7 @@ public class AIWriteBlogController {
     @NotNull
     private static String processContent(String content) {
         // 文章内容每行的行首空格处理
-//        content = WizardLMUtil.INSTANCE.trimHeadSpaces(content);
+//        content = LLMUtil.INSTANCE.trimHeadSpaces(content);
 
         String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
         // 将字符串分割为行
