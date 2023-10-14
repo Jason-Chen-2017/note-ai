@@ -25,7 +25,7 @@ public class MyTask {
     private AIWriteBlogController aIWriteBlogController;
 
 
-    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
+//    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
     public void AIGC() {
         // 定时任务:
         System.out.println("AIGC定时任务执行时间：" + new Date());
