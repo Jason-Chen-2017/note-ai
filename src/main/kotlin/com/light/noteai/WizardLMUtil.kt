@@ -11,6 +11,7 @@ import java.util.*
 fun Get_WizardLM_LOCAL_API_Randomly(): String {
     val API_LIST = listOf(
         "http://127.0.0.1:5000/api/v1/generate",
+        "http://127.0.0.1:6000/api/v1/generate",
     )
     val rand = Random()
     val index = rand.nextInt(API_LIST.size) // 0,1,2,3 randomly
