@@ -93,8 +93,7 @@ object WizardLMUtil {
 //            text = replaceNewLineAndTab(text)
 
             val completeText =
-                """
-作者：禅与计算机程序设计艺术                    
+                """                 
 
 # 1.背景介绍
 
