@@ -210,8 +210,8 @@ public class AIWriteBlogController {
         title = title.replaceAll("\\[", "");
 
         // 避免超长标题
-        if (title.length() > 55) {
-            title = title.substring(0, 55);
+        if (title.length() > 99) {
+            title = title.substring(0, 99);
         }
         return title;
     }
