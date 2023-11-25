@@ -183,6 +183,9 @@ public class NoteAITopics {
 
             "使用RPA通过GPT大模型AI Agent自动执行业务流程任务企业级应用开发实战：1. 引言和概述",
             "使用RPA通过GPT大模型AI Agent自动执行业务流程任务企业级应用开发实战：2. RPA和AI的结合",
+
+
+
             "使用RPA通过GPT大模型AI Agent自动执行业务流程任务企业级应用开发实战：3. GPT模型的基础知识",
             "使用RPA通过GPT大模型AI Agent自动执行业务流程任务企业级应用开发实战：4. RPA的基础知识",
             "使用RPA通过GPT大模型AI Agent自动执行业务流程任务企业级应用开发实战：5. 项目的需求分析",

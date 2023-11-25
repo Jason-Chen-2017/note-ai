@@ -49,7 +49,7 @@ object WizardLMUtil {
             .timeout(600 * 1000)
             .jsonBody(Gson().toJson(data).toString())
             .timeout(600 * 1000)
-            .timeoutRead(600 * 1000)
+            .timeoutRead(1800 * 1000)
             .responseString()
 
         val res = result.get()
