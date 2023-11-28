@@ -8,10 +8,9 @@ import java.util.*
 
 
 // 随机返回 apiList 中的一个元素
-fun Get_WizardLM_LOCAL_API_Randomly(): String {
+fun Get_OpenChat_LOCAL_API_Randomly(): String {
     val API_LIST = listOf(
-        "http://127.0.0.1:5000/api/v1/generate",
-//        "http://127.0.0.1:6000/api/v1/generate",
+        "http://localhost:18888/v1/chat/completions",
     )
     val rand = Random()
     val index = rand.nextInt(API_LIST.size) // 0,1,2,3 randomly
@@ -22,10 +21,10 @@ fun Get_WizardLM_LOCAL_API_Randomly(): String {
 /**
  * 备注：调用该API需到平台用户手册中--》》新手指南下载平台调用工具包
  */
-object WizardLMUtil {
+object OpenChatUtil {
 
     fun GetAPI(): String {
-        val API = Get_WizardLM_LOCAL_API_Randomly()
+        val API = Get_OpenChat_LOCAL_API_Randomly()
         println("====================================== API:$API ======================================")
         return API
     }
@@ -37,12 +36,13 @@ object WizardLMUtil {
      */
     fun WriteBlog(prompt: String): String {
         val data = mutableMapOf<String, Any>()
-        data["prompt"] = buildBlogPrompt(prompt)
-        data["temperature"] = 0.95
-        data["max_new_tokens"] = 8192
-        data["max_context_length"] = 8192
-        data["truncation_length"] = 8192
+        data["model"] = "openchat_3.5"
+        data["condition"] = "Code"
         data["top_p"] = 0.9
+        data["temperature"] = 0.1
+
+        val messages = listOf(mapOf(Pair("role", "user"), Pair("content", buildBlogPrompt(prompt))))
+        data["messages"] = messages
 
         val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
@@ -54,18 +54,52 @@ object WizardLMUtil {
 
         val res = result.get()
 
-        return ParseWizardLMResponse(res)
+        println(res)
+
+        return ParseOpenChatResponse(res)
     }
 
 
+    /**
+     * Input:
+     * {
+     *     "model": "openchat_3.5",
+     *     "condition": "Code",
+     *     "messages": [{"role": "user", "content": "1+1="}]
+     *   }
+     *
+     * Output:
+     *   {
+     *   "id": "cmpl-bafc983ab99848c1b32a83cd35181377",
+     *   "object": "chat.completion",
+     *   "created": 1701184195,
+     *   "model": "openchat_3.5",
+     *   "choices": [
+     *     {
+     *       "index": 0,
+     *       "message": {
+     *         "role": "assistant",
+     *         "content": "2"
+     *       },
+     *       "finish_reason": "stop"
+     *     }
+     *   ],
+     *   "usage": {
+     *     "prompt_tokens": 13,
+     *     "total_tokens": 16,
+     *     "completion_tokens": 3
+     *   }
+     * }
+     */
     fun Complete(prompt: String): String {
         val data = mutableMapOf<String, Any>()
-        data["prompt"] = prompt
-        data["temperature"] = 0.95
-        data["max_new_tokens"] = 8192
-        data["max_context_length"] = 8192
-        data["truncation_length"] = 8192
+        data["model"] = "openchat_3.5"
+        data["condition"] = "Code"
         data["top_p"] = 0.9
+        data["temperature"] = 0.1
+
+        val messages = listOf(mapOf(Pair("role", "user"), Pair("content", prompt)))
+        data["messages"] = messages
 
         val (_, _, result) = GetAPI().httpPost()
             .appendHeader("Content-Type", "application/json")
@@ -77,20 +111,18 @@ object WizardLMUtil {
 
         val res = result.get()
 
-        return ParseWizardLMResponse(res)
+        return ParseOpenChatResponse(res)
     }
 
 
-    private fun ParseWizardLMResponse(res: String): String {
+    private fun ParseOpenChatResponse(res: String): String {
 
         val gson = Gson()
-        val WizardLMResponse = gson.fromJson(res, WizardLMResponse::class.java)
+        val OpenChatResponse = gson.fromJson(res, OpenChatResponse::class.java)
 
-        if (WizardLMResponse.results.isNotEmpty()) {
-            var text = WizardLMResponse.results[0].text
+        if (OpenChatResponse.choices.isNotEmpty()) {
+            val text = OpenChatResponse.choices[0].message.content
             println("text=$text")
-
-//            text = replaceNewLineAndTab(text)
 
             val completeText =
                 """                 
@@ -109,12 +141,44 @@ ${text}
 
     }
 
-    class WizardLMResponse {
-        var results: List<TextObject> = listOf()
+
+    /**
+     * {
+     *   "id": "cmpl-bafc983ab99848c1b32a83cd35181377",
+     *   "object": "chat.completion",
+     *   "created": 1701184195,
+     *   "model": "openchat_3.5",
+     *   "choices": [
+     *     {
+     *       "index": 0,
+     *       "message": {
+     *         "role": "assistant",
+     *         "content": "2"
+     *       },
+     *       "finish_reason": "stop"
+     *     }
+     *   ],
+     *   "usage": {
+     *     "prompt_tokens": 13,
+     *     "total_tokens": 16,
+     *     "completion_tokens": 3
+     *   }
+     * }
+     */
+    class OpenChatResponse {
+        var id = "cmpl-bafc983ab99848c1b32a83cd35181377"
+        var model = "openchat_3.5"
+        var choices: List<Choices> = listOf()
     }
 
-    class TextObject {
-        var text = ""
+    class Choices {
+        var index = 0
+        var message = Message()
+    }
+
+    class Message {
+        var role = "assistant"
+        var content = ""
     }
 
     private fun buildBlogPrompt(prompt: String): String {
@@ -160,9 +224,9 @@ ${text}
     fun fixLatex(txt: String): String {
         var text = txt
 
-        text = text.replace("    heta","\\theta")
-        text = text.replace("    ext","\\text")
-        text = text.replace("\nabla","\\nabla")
+        text = text.replace("    heta", "\\theta")
+        text = text.replace("    ext", "\\text")
+        text = text.replace("\nabla", "\\nabla")
 
         return text
     }
@@ -190,7 +254,7 @@ ${text}
             if (index < firstLineSpaces) {
                 line // 在首次遇到开头有空格行之前的行不做处理
             } else {
-                if (firstLineSpaces >0){
+                if (firstLineSpaces > 0) {
                     val trimmedSpaces = line.takeWhile { it == ' ' }.take(firstLineSpaces) // 获取指定数量的空格
                     line.removePrefix(trimmedSpaces) // 去除指定数量的空格
                 } else {

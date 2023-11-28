@@ -4,9 +4,10 @@ package com.light.noteai
 import java.util.*
 
 
-enum class LLM_MODEL { QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
+enum class LLM_MODEL {Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
 
-val USE_LLM_MODEL = LLM_MODEL.WizardLM_MODEL
+// 配置模型
+val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
 
 object LLMUtil {
 
@@ -21,6 +22,8 @@ object LLMUtil {
             return WizardLMUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
             return ChatGLMUtil.WriteBlog(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
+            return OpenChatUtil.WriteBlog(prompt)
         } else {
             return WizardLMUtil.WriteBlog(prompt)
         }
@@ -34,6 +37,8 @@ object LLMUtil {
             return WizardLMUtil.Complete(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
             return ChatGLMUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
+            return OpenChatUtil.Complete(prompt)
         } else {
             return WizardLMUtil.Complete(prompt)
         }
