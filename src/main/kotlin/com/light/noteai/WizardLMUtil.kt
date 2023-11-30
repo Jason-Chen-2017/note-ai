@@ -4,6 +4,7 @@ package com.light.noteai
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
 import com.google.gson.Gson
+import com.light.noteai.LLMUtil.buildBlogPrompt
 import java.util.*
 
 
@@ -117,25 +118,7 @@ ${text}
         var text = ""
     }
 
-    private fun buildBlogPrompt(prompt: String): String {
-        val InputPrompt = """
-现在你是一位资深技术专家,程序员和软件系统架构师,CTO，请以《${prompt}》为标题，写一篇有深度有思考有见解的专业的技术博客文章。
-文章核心内容必须包含：
-# 1.背景介绍
-# 2.核心概念与联系
-# 3.核心算法原理和具体操作步骤以及数学模型公式详细讲解
-# 4.具体代码实例和详细解释说明
-# 5.未来发展趋势与挑战
-# 6.附录常见问题与解答
-这6大部分。文章字数大于8000字。使用markdown格式。下面我们开始写文章的全部内容。
-# ${prompt}
-# 1.背景介绍
-""".trimIndent()
 
-        println(InputPrompt)
-
-        return InputPrompt
-    }
 
 
     fun replaceNewLineAndTab(text: String): String {

@@ -4,7 +4,7 @@ package com.light.noteai
 import java.util.*
 
 
-enum class LLM_MODEL {Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
+enum class LLM_MODEL { Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
 
 // 配置模型
 val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
@@ -27,6 +27,40 @@ object LLMUtil {
         } else {
             return WizardLMUtil.WriteBlog(prompt)
         }
+    }
+
+
+    fun buildBlogPrompt(prompt: String): String {
+        val fullPrompt = """
+现在你是一位资深大数据技术专家,人工智能科学家,计算机科学家，资深程序员和软件系统资深架构师，CTO。
+
+GOALS:
+
+请以《${prompt}》为标题，写一篇有深度有思考有见解的专业的技术博客文章。
+文章核心内容必须包含：
+# 1.背景介绍
+# 2.核心概念与联系
+# 3.核心算法原理和具体操作步骤以及数学模型公式详细讲解
+# 4.具体代码实例和详细解释说明
+# 5.未来发展趋势与挑战
+# 6.附录常见问题与解答
+这6大部分。
+
+CONSTRAINTS:
+1.文章字数大于8000字
+2.使用markdown格式
+3.数学模型公式请使用latex格式，嵌入文中使用 $$ 
+
+下面我们开始写文章的全部内容。
+
+# ${prompt}
+# 1.背景介绍
+""".trimIndent()
+
+        println(Date())
+        println(fullPrompt)
+
+        return fullPrompt
     }
 
 
