@@ -95,3 +95,38 @@ CHANGE COLUMN `content` `content` LONGTEXT CHARACTER SET 'utf8mb4' COLLATE 'utf8
 文章格式请严格按照目录来写，使用markdown格式。数学公式使用 latex 格式$$
 
 ```
+
+
+# 使用 token 方式推送到 GitHub 仓库，你需要先生成一个个人访问令牌（Personal Access Token, PAT）。以下是生成 PAT 并使用它来推送到 GitHub 仓库的步骤：
+
+1. 生成个人访问令牌（PAT）：
+- 登录你的 GitHub 账户。
+- 点击右上角的头像，然后选择“Settings（设置）”。
+- 在侧边栏中选择“Developer settings（开发者设置）”。
+- 点击“Personal access tokens（个人访问令牌）”。
+- 点击“Generate new token（生成新令牌）”。
+- 给你的令牌命名，并设置过期时间。
+- 选择所需的权限（scopes），例如 `repo` 权限允许访问私有仓库。
+- 点击“Generate token（生成令牌）”。
+- 复制生成的令牌，确保保存在安全的地方，因为你不会再次看到这个令牌。
+
+2. 使用 PAT 推送到 GitHub 仓库：
+- 打开命令行工具（例如 Git Bash、终端等）。
+- 切换到你的本地仓库目录。
+- 如果你是第一次使用 PAT，你可能需要更新远程仓库的 URL 格式。可以使用以下命令：
+```bash
+git remote set-url origin https://<username>:<token>@github.com/<username>/<repository>.git
+```
+其中 `<username>` 是你的 GitHub 用户名，`<token>` 是你刚刚生成的个人访问令牌，`<repository>` 是你的仓库名称。
+
+- 现在，你可以使用正常的 `git push` 命令来推送你的代码：
+```bash
+git push origin main
+```
+或者推送到你想要的任何分支：
+```bash
+git push origin <branch-name>
+```
+其中 `<branch-name>` 是你想要推送的分支名称。
+
+请注意，从 2021 年 8 月 13 日起，GitHub 不再接受账户密码进行认证，因此你必须使用 PAT 或 SSH 密钥进行认证。此外，如果你的 Git 客户端支持，则可以使用 Git Credential Manager 来安全地存储和管理你的凭据。
