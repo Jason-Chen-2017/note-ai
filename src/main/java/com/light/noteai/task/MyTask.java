@@ -212,7 +212,7 @@ public class MyTask {
         }
     }
 
-    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+//    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
     public void WriteAllBlog() {
         // 定时任务:
         System.out.println("WriteBlog 任务执行时间：" + new Date());
