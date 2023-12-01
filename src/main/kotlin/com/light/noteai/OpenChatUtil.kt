@@ -39,8 +39,8 @@ object OpenChatUtil {
         val data = mutableMapOf<String, Any>()
         data["model"] = "openchat_3.5"
         data["condition"] = "Code"
-        data["top_p"] = 0.9
-        data["temperature"] = 0.1
+        data["top_p"] = 1
+        data["temperature"] = 1
 
         val messages = listOf(mapOf(Pair("role", "user"), Pair("content", buildBlogPrompt(prompt))))
         data["messages"] = messages
