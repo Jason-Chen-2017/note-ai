@@ -110,9 +110,9 @@ object OpenChatUtil {
         data["top_p"] = 0.9
         data["temperature"] = 0.1
 
-        data["presence_penalty"] = 0.5
-        data["frequency_penalty"] = 0.5
-        data["repetition_penalty"] = 1.5
+        data["presence_penalty"] = 0
+        data["frequency_penalty"] = 0
+        data["repetition_penalty"] = 1
 
         val messages = listOf(mapOf(Pair("role", "user"), Pair("content", buildBlogPrompt(prompt))))
         data["messages"] = messages
@@ -172,9 +172,9 @@ object OpenChatUtil {
         data["top_p"] = 0.9
         data["temperature"] = 0.1
 
-        data["presence_penalty"] = 0.5
-        data["frequency_penalty"] = 0.5
-        data["repetition_penalty"] = 1.5
+        data["presence_penalty"] = 0
+        data["frequency_penalty"] = 0
+        data["repetition_penalty"] = 1
 
         val messages = listOf(mapOf(Pair("role", "user"), Pair("content", prompt)))
         data["messages"] = messages
