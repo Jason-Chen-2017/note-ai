@@ -139,7 +139,7 @@ public interface NotesMapper {
     @Select("SELECT id, title, content, created_at, updated_at FROM notes ORDER BY updated_at DESC")
     List<Notes> findAll();
 
-    @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE title!=content")
+    @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE title=content")
     List<Notes> getAllUnWrittenNotes();
 
     @Select("SELECT id, title, content, created_at, updated_at FROM notes ORDER BY updated_at DESC LIMIT #{pageSize} OFFSET #{startIndex}")
