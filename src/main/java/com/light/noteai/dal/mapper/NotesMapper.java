@@ -139,6 +139,9 @@ public interface NotesMapper {
     @Select("SELECT id, title, content, created_at, updated_at FROM notes ORDER BY updated_at DESC")
     List<Notes> findAll();
 
+    @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE title!=content")
+    List<Notes> getAllUnWrittenNotes();
+
     @Select("SELECT id, title, content, created_at, updated_at FROM notes ORDER BY updated_at DESC LIMIT #{pageSize} OFFSET #{startIndex}")
     List<Notes> findByPage(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
 
@@ -159,4 +162,5 @@ public interface NotesMapper {
 
     @Select("SELECT count(*) FROM notes WHERE title LIKE CONCAT('%', #{keyword}, '%')")
     Integer getTotalNotesByKeyword(String keyword);
+
 }

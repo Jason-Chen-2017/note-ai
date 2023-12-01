@@ -24,63 +24,6 @@ public class MyTask {
     @Autowired
     private AIWriteBlogController aIWriteBlogController;
 
-
-//    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
-    public void AIGC() {
-        // 定时任务:
-        System.out.println("AIGC定时任务执行时间：" + new Date());
-
-        doAutoAIGC();
-
-    }
-
-    public void doAutoAIGC() {
-        for (String topic : NoteAITopics.topicsArray) {
-            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的10篇热门博客文章标题,每个标题放到单独的一行。只需要标题就可以了。不用多余的内容。";
-
-            System.out.println(prompt);
-
-            String lines = LLMUtil.INSTANCE.Complete(prompt);
-
-
-            for (String line : lines.split("\n")) {
-
-                System.out.println(line);
-                line = line.trim();
-
-                if (isGoodTitle(line)) {
-                    Notes note = new Notes();
-                    note.setTitle(line);
-                    note.setContent(line);
-                    Date date = new Date();
-                    note.setCreatedAt(date);
-                    note.setUpdatedAt(date);
-                    try {
-                        noteService.save(note);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-            }
-        }
-    }
-
-    public void doAutoTitle() {
-        for (String title : NoteAITopics.titleArray) {
-            Notes note = new Notes();
-            note.setTitle(title);
-            note.setContent(title);
-            Date date = new Date();
-            note.setCreatedAt(date);
-            note.setUpdatedAt(date);
-            try {
-                noteService.save(note);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-    }
-
     private static boolean isGoodTitle(String line) {
         line = line.trim();
         return line.length() > 10 &&
@@ -213,40 +156,94 @@ public class MyTask {
                 ;
     }
 
-
-    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
-    public void WriteAllBlog() {
+    //    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
+    public void AIGC() {
         // 定时任务:
-        System.out.println("WriteBlog 任务执行时间：" + new Date());
+        System.out.println("AIGC定时任务执行时间：" + new Date());
 
-        List<Notes> notes = noteService.getAllNotes();
-        // 随机乱序一下
-        Collections.shuffle(notes);
+        doAutoAIGC();
 
-        for (Notes note : notes) {
+    }
 
-            String title = note.getTitle();
-            if (isGoodTitle(title)) {
-                Integer id = note.getId();
-                Notes noteNewest = noteService.findById(id);
-                String contentInitial = noteNewest.getContent();
+    public void doAutoAIGC() {
+        for (String topic : NoteAITopics.topicsArray) {
+            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的10篇热门博客文章标题,每个标题放到单独的一行。只需要标题就可以了。不用多余的内容。";
 
-                if (Objects.equals(title, contentInitial)) {
-                    String content = LLMUtil.INSTANCE.WriteBlog(title);
+            System.out.println(prompt);
 
-                    System.out.println("标题:" + title);
-                    System.out.println("内容:" + content);
-                    System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
+            String lines = LLMUtil.INSTANCE.Complete(prompt);
 
-                    note.setContent(content);
-                    note.setUpdatedAt(new Date());
 
+            for (String line : lines.split("\n")) {
+
+                System.out.println(line);
+                line = line.trim();
+
+                if (isGoodTitle(line)) {
+                    Notes note = new Notes();
+                    note.setTitle(line);
+                    note.setContent(line);
+                    Date date = new Date();
+                    note.setCreatedAt(date);
+                    note.setUpdatedAt(date);
                     try {
                         noteService.save(note);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
+            }
+        }
+    }
+
+    public void doAutoTitle() {
+        for (String title : NoteAITopics.titleArray) {
+            Notes note = new Notes();
+            note.setTitle(title);
+            note.setContent(title);
+            Date date = new Date();
+            note.setCreatedAt(date);
+            note.setUpdatedAt(date);
+            try {
+                noteService.save(note);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    public void WriteAllBlog() {
+        // 定时任务:
+        System.out.println("WriteBlog 任务执行时间：" + new Date());
+
+        List<Notes> notes = noteService.getAllUnWrittenNotes();
+        // 随机乱序一下
+        Collections.shuffle(notes);
+
+        for (Notes note : notes) {
+            String title = note.getTitle();
+            if (isGoodTitle(title)) {
+
+                Integer id = note.getId();
+
+                System.out.println(new Date() + "    开始写文章：" + title);
+                String content = LLMUtil.INSTANCE.WriteBlog(title);
+                System.out.println(new Date() + "    结束写文章：" + title);
+
+                System.out.println("标题:" + title);
+                System.out.println("内容:" + content);
+                System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
+
+                note.setContent(content);
+                note.setUpdatedAt(new Date());
+
+                try {
+                    noteService.save(note);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
             }
 
         }

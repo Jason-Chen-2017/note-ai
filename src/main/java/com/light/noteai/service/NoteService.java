@@ -20,6 +20,10 @@ public class NoteService {
         return notesMapper.findAll();
     }
 
+    public List<Notes> getAllUnWrittenNotes() {
+        return notesMapper.getAllUnWrittenNotes();
+    }
+
     public List<Notes> getNotesByPage(int pageNum, int pageSize) {
         int startIndex = (pageNum - 1) * pageSize;
         return notesMapper.findByPage(startIndex, pageSize);
