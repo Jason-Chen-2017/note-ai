@@ -212,7 +212,7 @@ public class MyTask {
         }
     }
 
-//    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    //    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
     public void WriteAllBlog() {
         // 定时任务:
         System.out.println("WriteBlog 任务执行时间：" + new Date());
@@ -227,23 +227,28 @@ public class MyTask {
 
                 Integer id = note.getId();
 
-                System.out.println(new Date() + "    开始写文章：" + title);
-                String content = LLMUtil.INSTANCE.WriteBlog(title);
-                System.out.println(new Date() + "    结束写文章：" + title);
+                Notes noteNewest = noteService.findById(id);
+                String contentInitial = noteNewest.getContent();
 
-                System.out.println("标题:" + title);
-                System.out.println("内容:" + content);
-                System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
+                if (Objects.equals(title, contentInitial)) {
+                    System.out.println(new Date() + "    开始写文章：" + title);
+                    String content = LLMUtil.INSTANCE.WriteBlog(title);
+                    System.out.println(new Date() + "    结束写文章：" + title);
 
-                note.setContent(content);
-                note.setUpdatedAt(new Date());
+                    System.out.println("标题:" + title);
+                    System.out.println("内容:" + content);
+                    System.out.println("URL: http://127.0.0.1:9000/notes/" + id);
 
-                try {
-                    noteService.save(note);
-                } catch (Exception e) {
-                    System.out.println(e);
+                    note.setContent(content);
+                    note.setUpdatedAt(new Date());
+
+                    try {
+                        noteService.save(note);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
                 }
-
             }
 
         }
