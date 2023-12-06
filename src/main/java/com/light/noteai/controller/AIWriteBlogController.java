@@ -134,23 +134,13 @@ public class AIWriteBlogController {
 
         new Thread(() -> {
 
-            List<Notes> notes = noteService.getAllNotes();
+            List<Notes> notes = noteService.getAllWrittenNotes();
             for (Notes note : notes) {
                 String title = note.getTitle();
                 String content = note.getContent();
-
-//  在写文章的时候已经处理了，所以这里不用重复处理了。
-//                // 文章内容每行的行首空格处理
-//                content = LLMUtil.INSTANCE.trimHeadSpaces(content);
-//                // 被\t,\n错误替换的latex公式修复
-//                content = LLMUtil.INSTANCE.fixLatex(content);
-
                 Date date = note.getUpdatedAt();
-
                 String d = new SimpleDateFormat("yyyyMMdd").format(date);
-
-                // 如果标题跟内容不相同，表面是生成之后的文章了，文章内容写入md文件中
-                if (!Objects.equals(title, content) && title.length() > 10) {
+                if (title.length() > 10) {
                     WriteMD(mdFilePath + d, title, content);
                 }
             }

@@ -24,6 +24,10 @@ public class NoteService {
         return notesMapper.getAllUnWrittenNotes();
     }
 
+    public List<Notes> getAllWrittenNotes() {
+        return notesMapper.getAllWrittenNotes();
+    }
+
     public List<Notes> getNotesByPage(int pageNum, int pageSize) {
         int startIndex = (pageNum - 1) * pageSize;
         return notesMapper.findByPage(startIndex, pageSize);

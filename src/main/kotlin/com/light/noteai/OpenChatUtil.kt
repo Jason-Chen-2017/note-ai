@@ -170,7 +170,7 @@ object OpenChatUtil {
         data["condition"] = "Code"
 
         data["top_p"] = 0.9
-        data["temperature"] = 0.1
+        data["temperature"] = 0.2
 
         data["presence_penalty"] = 0
         data["frequency_penalty"] = 0
@@ -189,7 +189,7 @@ object OpenChatUtil {
 
         val res = result.get()
 
-        return ParseOpenChatResponse(res)
+        return ParseOpenChatResponseComplete(res)
     }
 
 
@@ -217,6 +217,22 @@ ${text}
             return "\n"
         }
 
+    }
+
+
+
+    private fun ParseOpenChatResponseComplete(res: String): String {
+
+        val gson = Gson()
+        val OpenChatResponse = gson.fromJson(res, OpenChatResponse::class.java)
+
+        if (OpenChatResponse.choices.isNotEmpty()) {
+            val text = OpenChatResponse.choices[0].message.content
+            println("text=$text")
+            return text
+        } else {
+            return "\n"
+        }
     }
 
 
