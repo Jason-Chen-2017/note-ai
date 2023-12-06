@@ -1,6 +1,7 @@
 package com.light.noteai.task;
 
 import com.light.noteai.LLMUtil;
+import com.light.noteai.constant.NoteAITitles;
 import com.light.noteai.constant.NoteAITopics;
 import com.light.noteai.controller.AIWriteBlogController;
 import com.light.noteai.mapper.po.Notes;
@@ -156,7 +157,7 @@ public class MyTask {
                 ;
     }
 
-    //    @Scheduled(cron = "0 0 */12 * * ?") // 每隔12h执行一次
+    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
     public void AIGC() {
         // 定时任务:
         System.out.println("AIGC定时任务执行时间：" + new Date());
@@ -197,7 +198,7 @@ public class MyTask {
     }
 
     public void doAutoTitle() {
-        for (String title : NoteAITopics.titleArray) {
+        for (String title : NoteAITitles.titleArray) {
             Notes note = new Notes();
             note.setTitle(title);
             note.setContent(title);
@@ -231,8 +232,11 @@ public class MyTask {
                 String contentInitial = noteNewest.getContent();
 
                 if (Objects.equals(title, contentInitial)) {
+
                     System.out.println(new Date() + "    开始写文章：" + title);
+
                     String content = LLMUtil.INSTANCE.WriteBlog(title);
+
                     System.out.println(new Date() + "    结束写文章：" + title);
 
                     System.out.println("标题:" + title);
