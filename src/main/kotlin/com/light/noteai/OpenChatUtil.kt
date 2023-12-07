@@ -108,7 +108,7 @@ object OpenChatUtil {
         data["condition"] = "Code"
 
         data["top_p"] = 0.9
-        data["temperature"] = 0.1
+        data["temperature"] = 0.3
 
         data["presence_penalty"] = 0
         data["frequency_penalty"] = 0
@@ -170,7 +170,7 @@ object OpenChatUtil {
         data["condition"] = "Code"
 
         data["top_p"] = 0.9
-        data["temperature"] = 0.2
+        data["temperature"] = 0.6
 
         data["presence_penalty"] = 0
         data["frequency_penalty"] = 0
