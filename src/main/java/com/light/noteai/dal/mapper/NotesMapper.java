@@ -142,7 +142,7 @@ public interface NotesMapper {
     @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE updated_at=created_at")
     List<Notes> getAllUnWrittenNotes();
 
-    @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE updated_at!=created_at")
+    @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE updated_at!=created_at  AND updated_at >= DATE(NOW()) - INTERVAL 3 DAY")
     List<Notes> getAllWrittenNotes();
 
     @Select("SELECT id, title, content, created_at, updated_at FROM notes ORDER BY updated_at DESC LIMIT #{pageSize} OFFSET #{startIndex}")
