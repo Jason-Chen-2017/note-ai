@@ -2,6 +2,116 @@
 Note AI
 
 
+# MySQL Config
+
+
+
+## Error: 13 (权限不够)
+
+``` 
+> systemctl status mysql.service                                                                                                                                                                           13:44:25
+× mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Sat 2023-12-16 13:44:28 CST; 5s ago
+    Process: 2275187 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+    Process: 2275195 ExecStart=/usr/sbin/mysqld (code=exited, status=1/FAILURE)
+   Main PID: 2275195 (code=exited, status=1/FAILURE)
+     Status: "Server shutdown complete"
+      Error: 13 (权限不够)
+        CPU: 266ms
+
+12月 16 13:44:28 ai systemd[1]: mysql.service: Scheduled restart job, restart counter is at 5.
+12月 16 13:44:28 ai systemd[1]: Stopped MySQL Community Server.
+12月 16 13:44:28 ai systemd[1]: mysql.service: Start request repeated too quickly.
+12月 16 13:44:28 ai systemd[1]: mysql.service: Failed with result 'exit-code'.
+12月 16 13:44:28 ai systemd[1]: Failed to start MySQL Community Server.
+```
+
+## 解决方案
+
+``` 
+sudo chmod -R 777 /var/lib/mysql
+sudo chmod -R 777 /var/log
+
+sudo systemctl restart mysql 
+
+systemctl status mysql.service                                                                                                                                                                           
+
+
+---------------------------------------------------------------------------------------------------
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2023-12-16 13:47:20 CST; 20s ago
+    Process: 2275498 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 2275506 (mysqld)
+     Status: "Server is operational"
+      Tasks: 38 (limit: 18841)
+     Memory: 502.3M
+        CPU: 954ms
+     CGroup: /system.slice/mysql.service
+             └─2275506 /usr/sbin/mysqld
+
+12月 16 13:47:18 ai systemd[1]: Starting MySQL Community Server...
+12月 16 13:47:20 ai systemd[1]: Started MySQL Community Server.
+[13:47:41] me@ai /home/me  
+>                                                                                                                                                                                                          13:47:41
+[13:47:45] me@ai /home/me  
+>                                                                                                                                                                                                          13:47:45
+[13:47:45] me@ai /home/me  
+> systemctl status mysql.service                                                                                                                                                                           13:47:45
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2023-12-16 13:47:20 CST; 25s ago
+    Process: 2275498 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 2275506 (mysqld)
+     Status: "Server is operational"
+      Tasks: 38 (limit: 18841)
+     Memory: 502.3M
+        CPU: 971ms
+     CGroup: /system.slice/mysql.service
+             └─2275506 /usr/sbin/mysqld
+
+12月 16 13:47:18 ai systemd[1]: Starting MySQL Community Server...
+12月 16 13:47:20 ai systemd[1]: Started MySQL Community Server.
+
+```
+
+
+# DB Schemas
+
+
+
+```sql 
+
+CREATE TABLE `notes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(520) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_create` (`created_at`),
+  KEY `idx_update` (`updated_at`),
+  KEY `idx_title` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 好的，以下是创建一个名为 `note_ai` 的 MySQL 数据库，并设置为 utf8mb4 字符集（支持表情包编码）的 SQL 语句：
 
 ```
