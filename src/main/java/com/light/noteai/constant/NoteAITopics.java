@@ -15,6 +15,13 @@ public class NoteAITopics {
 
 
     public final static String[] topicsArray = {
+            "大数据AI人工智能",
+            "ChatGPT",
+            "AI大模型企业级应用开发实战",
+            "LLM大模型落地实战指南",
+            "深度学习实战",
+            "ClickHouse企业级实战开发",
+            "架构师必知必会系列",
             "禅与计算机程序设计艺术",
             "计算机程序设计艺术",
             "计算机程序设计之道",
