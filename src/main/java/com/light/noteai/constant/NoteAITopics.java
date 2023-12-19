@@ -6,14 +6,6 @@ import java.util.HashSet;
 public class NoteAITopics {
 
 
-    public static HashSet<String> getTopics() {
-        HashSet<String> topics = new HashSet<>();
-        // 将数组转换为 HashSet
-        topics.addAll(Arrays.asList(topicsArray));
-        return topics;
-    }
-
-
     public final static String[] topicsArray = {
             "大数据AI人工智能",
             "ChatGPT",
@@ -37,6 +29,43 @@ public class NoteAITopics {
             "人工智能机器学习",
             "人工智能深度学习",
             "人工智能大语言模型",
+
+            "特征向量与矩阵分析", "标量", "特征向量与特征空间", "特征空间的正交性", "特征向量的大小与方向", "向量转置", "向量加法",
+            "向量乘法", "向量数乘", "向量内积", "向量外积", "分量乘法", "向量的线性相关性", "矩阵分析与人工智能", "矩阵转置", "矩阵加法", "矩阵乘法", "矩阵数乘", "矩阵内积", "矩阵内积的外积展开",
+            "元素乘法", "矩阵的特征值与特征向量", "矩阵的秩", "初等变换", "初等矩阵", "矩阵的逆", "矩阵的分块操作", "矩阵的迹", "矩阵分解", "LU分解", "特征分解", "奇异值分解",
+            "人工智能的数学基础", "二次型与正定矩阵", "张量", "相似性度量", "相似性度量的重要性", "相似性度量的多样性", "闵氏距离", "曼哈顿距离", "欧氏距离", "切比雪夫距离", "曼-切转换",
+            "马氏距离", "维度相关问题", "独立化处理", "与欧氏距离的关系", "余弦距离", "夹角余弦", "距离度量", "汉明距离", "严格定义", "松弛定义", "杰卡德距离", "皮尔森距离", "相关系数",
+            "斯皮尔曼距离", "肯德尔距离", "函数与泛函分析", "集合", "定义与表示", "元素特性", "集合运算", "凸集分离定理",
+            "定义与表示", "区间算术", "函数映射", "自变量与因变量", "多元函数", "复合函数", "连续性、单调性、奇偶性", "函数凸性与极值", "激活函数", "导数", "函数可导与泰勒展开", "求导法则",
+            "偏导数与雅可比矩阵", "方向导数与梯度", "Hessian矩阵与函数凸性", "凸函数成立条件", "散度", "微积分", "微分", "密切圆与曲率", "不定积分", "定积分", "泛函数分析",
+            "基函数与函数内积", "特征值与特征函数", "线性空间与线性映射", "对偶空间与对偶基", "希尔伯特空间",
+            "条件概率与贝叶斯", "事件与概率", "随机试验", "样本空间", "随机事件", "概率", "条件概率", "事件独立性", "全概率", "随机变量及其概率分布",
+            "随机变量", "概率分布", "独立同分布", "样本统计量", "均值", "样本方差", "期望", "概率方差", "协方差", "协方差矩阵",
+            "常见的概率分布", "二项分布", "泊松分布", "指数分布与伽马分布", "贝塔分布", "高斯分布及其变形",
+            "贝叶斯决策", "离散型贝叶斯公式", "连续型贝叶斯公式", "最小错误率贝叶斯决策", "最小风险贝叶斯决策", "朴素贝叶斯分类",
+            "参数估计", "估计量与估计值", "点估计与区间估计", "置信区间与水平", "估计量的评价", "矩估计", "最小二乘估计", "最大似然估计", "最大后验概率估计", "贝叶斯估计与共轭分布",
+            "假设检验", "原假设与备择假设", "弃真与取伪", "显著性水平与p-value", "双侧检验与单侧检验", "代表性检验统计量与方法",
+            "信息论与熵", "人工智能与信息论", "特征编码", "直接编码", "One-hot编码", "Dummy编码", "压缩编码", "聚类",
+            "特征降维", "特征选择", "稀疏编码", "压缩感知", "决策编码", "假设空间", "版本空间", "决策平面", "纠错输出码", "决策解码",
+            "聚类", "线性分类", "纠错输出码", "特征降维", "自编码", "恒等变换", "欠完备自编码", "稀疏自编码", "收缩自编码器", "不确定性与熵",
+            "联合熵", "条件熵", "交叉熵与损失函数", "相对熵与KL散度", "互信息", "定义与性质", "点互信息",
+            "线性分析与卷积", "线性分析", "线性运算", "线性空间", "线性空间基", "线性映射与变换", "线性映射的矩阵表达",
+            "坐标变换", "线性判别", "判别函数", "判别分析", "非线性问题", "卷积", "定义", "两个例子", "性质", "边界填充",
+            "池化", "定义", "作用与意义", "与卷积的关系", "反卷积", "作用与意义", "与线性变换的关系", "卷积表示",
+            "正则化与范数", "过拟合问题与正则化", "泛化能力", "过拟合与欠拟合", "假设空间与归纳偏好", "无免费午餐定理",
+            "硬正则化", "数据归一化、标准化", "提前终止训练", "权值共享", "池化", "随机失效", "集成学习",
+            "支持向量机", "软正则化", "损失函数", "期望风险", "经验风险", "置信风险", "VC维与置信风险", "目标函数与支持向量机", "范数正则化",
+            "向量范数", "矩阵范数", "关联关系", "最优化理论与方法", "最优化的意义与重要性", "直接法", "极值、最值与驻点",
+            "一元函数", "二元函数", "多元函数", "无约束迭代法", "一般迭代法", "下降迭代法", "梯度法", "一阶泰勒展开", "柯西-施瓦茨不等式",
+            "学习率与梯度降", "最速下降法", "批量下降法与随机下降法", "牛顿法", "二阶泰勒展开与Hessian矩阵", "一维线性搜索", "拟牛顿法",
+            "Hessian逆的秩1修正", "Hessian逆的秩2修正", "秩1修正的逆", "Hessian矩阵的近似及其变形", "共轭梯度法", "共轭向量与共轭方向", "共轭方向法", "共轭方向与梯度的正交关系",
+            "基于梯度的共轭方向生成", "次梯度法", "次梯度定义", "次梯度取值", "次梯度优化条件", "坐标下降法", "与共轭方向法的关系", "约束优化", "拉格朗日乘数法", "KKT条件", "拉格朗日对偶",
+            "强对偶成立的条件", "核函数映射", "线性不可分问题", "Cover定理", "普通位置向量集", "维度与线性可分的关系", "核函数", "Mercer定理", "可组合扩展性", "有效核的构造",
+            "多项式核", "核矩阵的半正定性", "齐次有序单项式向量空间", "有序单项式向量空间", "齐次无序单项式向量空间", "无序单项式向量空间",
+            "线性核", "高阶非线性核", "径向基核", "径向基函数", "高斯核", "幂指数核", "拉普拉斯核", "核矩阵的半正定性", "Sigmoid核", "条件半正定", "与径向基核的关系",
+            "性能评价与度量", "性能评价的意义与重要性", "模型选择与交叉验证", "错误率与精度", "混淆矩阵", "查准-查全问题", "查准率与查全率", "P-R曲线", "F分数", "真-假阳性问题",
+            "真/假阳/阴性率", "ROC曲线与AUC", "多混淆矩阵问题", "宏平均", "微平均", "代价敏感问题", "代价敏感矩阵", "代价曲线与预测错误总体代价", "假设检验", "单一模型", "多模型",
+
             "深度学习在大数据分析中的应用",
             "自然语言处理与大数据",
             "推荐系统与个性化营销",
@@ -149,7 +178,6 @@ public class NoteAITopics {
             "创意设计与视觉艺术",
             "自然资源管理与保护",
 
-
             "机器学习算法与模型",
             "深度学习与神经网络",
             "自然语言处理与文本分析",
@@ -256,7 +284,6 @@ public class NoteAITopics {
             "LLM大语言模型在大数据分析中的应用",
 
 
-
             "量子力学", "相对论", "黑洞", "宇宙学", "量子场论", "超导", "凝聚态物理", "粒子物理学", "弦理论",
             "量子计算", "量子通信", "量子纠缠", "量子态", "引力波", "暗物质", "暗能量", "宇宙背景辐射", "宇宙大爆炸",
             "夸克", "轻子", "标准模型", "弱相互作用", "强相互作用", "电磁相互作用", "高能物理", "核物理", "原子物理",
@@ -353,15 +380,15 @@ public class NoteAITopics {
             "From LowCode to Zero Code: 低代码系统架构设计方案",
             "From LowCode to Zero Code: 零代码系统架构设计方案",
             "Java", "Python", "Golang", "Rust", "JavaScript", "MySQL", "Spring Boot", "MyBatis",
-            "多线程","协程","集合类","Stream API",
+            "多线程", "协程", "集合类", "Stream API",
             "微服务架构", "容器化", "云原生", "单体架构", "分布式系统", "事件驱动架构", "消息队列",
             "RESTful API", "GraphQL", "RPC", "网关", "负载均衡", "服务发现", "服务治理", "服务网格",
             "API 网关", "边缘计算", "多租户", "高可用", "高性能", "容错性", "可扩展性", "自适应",
-            "DevOps", "敏捷开发", "架构师","程序员职业成长", "技术架构", "企业架构", "系统架构", "数据架构", "安全架构", "云架构",
+            "DevOps", "敏捷开发", "架构师", "程序员职业成长", "技术架构", "企业架构", "系统架构", "数据架构", "安全架构", "云架构",
             "混合云", "公有云", "私有云", "混合云", "多云", "云服务", "云存储", "云计算", "虚拟化", "容器编排",
-            "软件工程", "项目管理","工程效能",
+            "软件工程", "项目管理", "工程效能",
             "人工智能", "机器学习", "深度学习", "卷积神经网络", "循环神经网络", "强化学习", "自然语言处理", "计算机视觉", "并行计算",
-            "分布式计算", "云计算", "物联网",  "虚拟化",
+            "分布式计算", "云计算", "物联网", "虚拟化",
             "测试驱动开发", "持续集成", "持续交付", "DevOps", "敏捷开发", "需求分析", "设计模式", "架构模式", "重构", "代码质量", "代码审查", "代码规范", "代码重用", "设计原则",
             "简洁代码", "反射", "注解", "lambda表达式", "函数式编程", "面向对象编程", "泛型", "异常处理", "多线程编程", "同步机制", "异步编程", "事件驱动编程",
             "消息队列", "RPC", "TCP/IP协议", "HTTP协议", "WebSocket协议", "SSL/TLS协议", "Web安全",
@@ -378,7 +405,7 @@ public class NoteAITopics {
             "tf-idf", "n-gram模型", "循环神经网络语言模型", "Attention机制", "Transformer模型", "BERT模型", "GPT模型", "GAN模型", "VAE模型", "推荐系统",
             "协同过滤", "基于内容的推荐", "矩阵分解推荐", "深度推荐", "知识图谱", "实体识别", "关系抽取", "知识表示学习", "图卷积网络", "半监督图卷积网络",
             "流形学习", "t-SNE算法", "LLE算法", "稀疏编码", "聚类分析", "人工智能", "机器学习", "深度学习", "数据挖掘", "知识图谱", "自然语言处理", "推荐系统",
-            "智能算法", "协同过滤", "聚类分析", "分类器", "信任计算", "大数据", "云计算", "物联网",  "时间序列", "模糊逻辑", "神经网络", "集成学习",
+            "智能算法", "协同过滤", "聚类分析", "分类器", "信任计算", "大数据", "云计算", "物联网", "时间序列", "模糊逻辑", "神经网络", "集成学习",
             "强化学习", "监督学习", "无监督学习", "半监督学习", "迁移学习", "元学习", "生成对抗网络", "因果关系", "机器人学", "虚拟现实", "增强现实", "情感分析",
             "多模态学习", "主动学习", "深度强化学习", "贝叶斯网络", "决策树", "支持向量机", "逻辑回归", "随机森林", "神经决策树", "神经模糊系统", "遗传算法", "蚁群算法",
             "禁忌搜索", "模拟退火", "粒子群优化", "人工免疫算法", "差分进化算法", "蝙蝠算法", "鲸鱼优化算法", "蜻蜓优化算法", "鱼群算法", "蜂群算法",
@@ -386,7 +413,7 @@ public class NoteAITopics {
             "因子分析", "独立成分分析", "t-SNE降维", "局部线性嵌入", "概率PCA", "核主成分分析", "非负矩阵分解", "张量分解", "熵权法", "TOPSIS法", "灰色关联分析",
             "层次分析法", "模糊综合评价", "支持度向量机", "多粒度模型", "聚类-分类集成", "多目标决策", "组合优化", "排队论", "动态规划", "蒙特卡罗方法", "贝叶斯优化",
             "遗传编程", "神经进化算法", "元启发式算法", "大数据", "人工智能", "智能化", "数字化", "企业", "转型", "变革", "数据中心", "云计算", "边缘计算", "物联网",
-            "5G",  "深度学习", "机器学习", "数据挖掘", "数据分析", "数据可视化", "大规模数据处理", "数据仓库", "数据管理", "数据集成", "数据治理", "数据架构", "数据安全",
+            "5G", "深度学习", "机器学习", "数据挖掘", "数据分析", "数据可视化", "大规模数据处理", "数据仓库", "数据管理", "数据集成", "数据治理", "数据架构", "数据安全",
             "数据隐私", "数据质量", "数据清洗", "数据标准化", "数据采集", "数据存储", "数据传输", "数据预处理", "智能推荐", "自然语言处理", "计算机视觉", "图像识别", "语音识别",
             "增强现实", "虚拟现实", "数据驱动", "业务智能", "智能决策", "智能客服", "智能营销", "智慧城市", "智能家居", "智能制造", "工业4.0", "智能交通", "智能物流", "智能金融",
             "智能医疗", "智能教育", "智能农业", "人机交互", "边界计算", "模型设计", "模型训练", "模型管理", "模型部署", "模型解释", "模型监控", "AI芯片", "深度神经网络", "卷积神经网络",
@@ -398,7 +425,7 @@ public class NoteAITopics {
             "数据中台", "数据湖", "数据仓库", "数据集成", "数据治理", "数据挖掘", "数据分析", "数据可视化", "人工智能", "机器学习",
             "深度学习", "自然语言处理", "推荐系统", "计算机视觉", "物联网", "大数据", "流式计算", "实时数据", "数据流", "日志分析",
             "监控", "性能优化", "架构评审", "重构", "技术选型", "技术预研", "技术栈", "技术趋势",
-            "云计算", "大数据", "物联网", "人工智能", "机器学习",  "数字孪生", "5G", "边缘计算", "自动化", "智能制造", "数字化设计",
+            "云计算", "大数据", "物联网", "人工智能", "机器学习", "数字孪生", "5G", "边缘计算", "自动化", "智能制造", "数字化设计",
             "智能交互", "虚拟现实", "增强现实", "数字化零售", "智能客服", "区块链溯源", "智能家居", "智慧城市", "数字化医疗", "智能教育", "数字化金融",
             "智能投顾", "数字化营销", "工业互联网", "可穿戴设备", "智能物流", "智能仓储", "数字孪生模型", "智能农业", "生物特征识别", "智能安防", "数字化旅游",
             "数字支付", "智慧物业", "智能能源", "数字文化", "数字化印刷", "互联车联", "人脑-计算机接口", "个性化推荐", "智能分析", "云计算安全", "智能客流",
@@ -407,7 +434,7 @@ public class NoteAITopics {
             "智慧农业", "智能云服务", "智能检测", "智能化工", "数字化音乐", "智能教学", "移动支付", "智能客户关系管理", "数字化房地产", "数字化酒店",
             "智能建筑", "智能化环保", "数字化养老", "智能法律服务", "智能物联", "数字化农业", "智能装备", "数字化物流", "数字化政务", "数字化人才管理",
             "智能医疗设备", "数字化智库", "图像识别", "数字化体育", "数字化影视", "数据结构", "算法", "编程语言", "操作系统", "计算机网络", "数据库",
-             "容器化", "微服务", "GraphQL", "OAuth2.0", "OpenID Connect",
+            "容器化", "微服务", "GraphQL", "OAuth2.0", "OpenID Connect",
             "单元测试", "集成测试", "端到端测试", "测试覆盖率", "自动化测试", "性能测试", "压力测试", "安全测试", "接口测试", "UI测试",
             "前端开发", "后端开发", "全栈开发", "移动应用开发", "桌面应用开发", "游戏开发", "Web开发", "微信小程序开发",
             "React Native开发", "Flutter开发", "数据分析", "数据挖掘", "机器人流程自动化", "自动化运维",
@@ -452,51 +479,15 @@ public class NoteAITopics {
             "多模态学习", "跨模态学习", "跨语言学习", "跨领域学习", "相关性学习", "增量学习", "深度强化学习", "迁移学习", "无监督学习", "半监督学习", "有监督学习", "在线学习", "集成学习", "神经网络",
             "卷积神经网络（CNN）", "循环神经网络（RNN）", "长短时记忆网络（LSTM）", "门控循环单元网络（GRU）", "注意力机制", "元学习", "机器人学", "自动化", "智能驾驶", "人工智能伦理", "人工智能安全",
             "人工智能隐私", "人工智能透明度", "人工智能监管", "人工智能规制", "人工智能民主化", "人工智能教育", "人工智能医疗", "人工智能农业", "人工智能金融", "人工智能法律", "人工智能工业", "人工智能媒体",
-            "人工智能游戏", "人工智能设计", "人工智能音乐", "人工智能文化", "人工智能哲学", "机器学习（Machine Learning）", "深度学习（Deep Learning）",
-            "自然语言处理（Natural Language Processing，NLP）", "计算机视觉（Computer Vision，CV）", "人工智能伦理（AI Ethics）", "机器翻译（Machine Translation）", "强化学习（Reinforcement Learning）",
-            "人机交互（Human-Computer Interaction，HCI）", "人工智能安全（AI Security）", "数据科学（Data Science）", "神经网络（Neural Networks）", "语音识别（Speech Recognition）", "图像分类（Image Classification）",
-            "聊天机器人（Chatbot）", "推荐系统（Recommendation System）", "数据挖掘（Data Mining）", "机器视觉（Machine Vision）", "机器人（Robotics）", "自动化（Automation）", "人工智能教育（AI in Education）",
-            "人工智能医疗（AI in Healthcare）", "智能家居（Smart Home）", "人脸识别（Facial Recognition）", "模式识别（Pattern Recognition）", "情感分析（Sentiment Analysis）", "多模态学习（Multimodal Learning）",
-            "知识图谱（Knowledge Graph）", "时间序列分析（Time Series Analysis）", "集成学习（Ensemble Learning）", "物联网（Internet of Things，IoT）", "机器人流程自动化（Robotic Process Automation，RPA）",
-            "人工智能市场（AI Market）", "人工智能创意（AI Creativity）", "人工智能音乐（AI in Music）", "人工智能游戏（AI in Gaming）", "人工智能金融（AI in Finance）", "人工智能法律（AI in Law）",
-            "人工智能农业（AI in Agriculture）", "人工智能制造（AI in Manufacturing）", "人工智能交通（AI in Transportation）", "人工智能能源（AI in Energy）", "人工智能语音合成（Text-to-Speech，TTS）",
-            "人工智能语音转换（Voice Conversion）", "机器人视觉（Robot Vision）", "人工智能图像处理（AI Image Processing）", "机器人操作系统（Robot Operating System，ROS）", "机器人控制（Robot Control）",
-            "人工智能推理（AI Reasoning）", "脑机接口（Brain-Computer Interface，BCI）", "人工智能食品（AI in Food）", "人工智能语音识别（Speech-to-Text，STT）", "人工智能文本分析（AI Text Analysis）",
-            "人工智能自然语言生成（Natural Language Generation，NLG）", "人工智能自然语言理解（Natural Language Understanding，NLU）", "人工智能运维（AI in Operations）",
-            "人工智能客服（AI Customer Service）", "人工智能营销（AI in Marketing）", "人工智能虚拟助手（Virtual Assistant）", "人工智能智能化工厂（AI in Smart Factories）",
-            "人工智能智能城市（AI in Smart Cities）", "人工智能智能家具（AI in Smart Furniture）", "人工智能智能车辆（AI in Smart Vehicles）", "人工智能智能交互（AI in Smart Interaction）",
-            "人工智能智能硬件（AI in Smart Hardware）", "人工智能智能安防（AI in Smart Security）", "人工智能智慧决策（AI in Smart Decision Making）",
-            "人工智能智能电网（AI in Smart Grid）", "人工智能智能物流（AI in Smart Logistics）", "人工智能智能农业（AI in Smart Agriculture）", "人工智能智能医疗器械（AI in Smart Medical Devices）", "人工智能智能家电（AI in Smart Home Appliances）",
-            "人工智能智能语音助手（AI Voice Assistants）", "人工智能智能机器人（AI Robots）", "人工智能智能安防摄像头（AI in Smart Security Cameras）", "人工智能智能医疗影像（AI in Medical Imaging）",
-            "人工智能智能客服机器人（AI in Customer Service Robots）", "人工智能智能驾驶（AI in Autonomous Driving）", "人工智能智能家居控制系统（AI in Smart Home Control Systems）",
-            "人工智能智能语音交互（AI in Smart Voice Interaction）", "人工智能智能音响（AI in Smart Speakers）", "人工智能智能家居安防系统（AI in Smart Home Security Systems）",
-            "人工智能智能健康管理（AI in Smart Health Management）", "人工智能智能物联网（AI in Smart IoT）", "人工智能智能决策支持（AI in Smart Decision Support）",
-            "人工智能智能营销助手（AI in Smart Marketing Assistants）", "人工智能智能智能物流机器人（AI in Smart Logistics Robots）", "人工智能智能制造机器人（AI in Smart Manufacturing Robots）",
-            "人工智能智能客服电话（AI in Smart Customer Service Calls）", "人工智能智能物流管理（AI in Smart Logistics Management）", "人工智能智能制造管理（AI in Smart Manufacturing Management）",
-            "人工智能智能家居卫士（AI in Smart Home Guardians）", "人工智能智能安全监控（AI in Smart Security Monitoring）", "人工智能智能健康监测（AI in Smart Health Monitoring）",
-            "人工智能智能医疗服务（AI in Smart Medical Services）", "人工智能智能营销策略（AI in Smart Marketing Strategies）", "人工智能智能物流管理系统（AI in Smart Logistics Management Systems）",
-            "人工智能智能制造管理系统（AI in Smart Manufacturing Management Systems）", "人工智能智能家居安全系统（AI in Smart Home Security Systems）",
-            "人工智能智能安全服务（AI in Smart Security Services）", "人工智能智能健康管理系统（AI in Smart Health Management Systems）",
-            "人工智能智能医疗支持（AI in Smart Medical Support）", "人工智能智能营销平台（AI in Smart Marketing Platforms）", "人工智能智能物流配送（AI in Smart Logistics Delivery）",
-            "人工智能智能制造控制（AI in Smart Manufacturing Control）", "人工智能智能家居监控（AI in Smart Home Monitoring）", "人工智能智能安全控制（AI in Smart Security Control）",
-            "人工智能智能健康监护（AI in Smart Health Monitoring）", "人工智能智能医疗数据（AI in Smart Medical Data）", "人工智能智能营销工具（AI in Smart Marketing Tools）",
-            "人工智能智能物流管理平台（AI in Smart Logistics Management Platforms）", "人工智能智能制造监控（AI in Smart Manufacturing Monitoring）", "人工智能智能家居控制器（AI in Smart Home Controllers）",
-            "人工智能智能安全控制器（AI in Smart Security Controllers）", "人工智能智能健康分析（AI in Smart Health Analysis）", "人工智能智能医疗决策（AI in Smart Medical Decision Making）",
-            "人工智能智能营销分析（AI in Smart Marketing Analysis）", "人工智能智能物流分析（AI in Smart Logistics Analysis）", "人工智能智能制造分析（AI in Smart Manufacturing Analysis）",
-            "人工智能智能家居控制面板（AI in Smart Home Control Panels）", "人工智能智能安全监察（AI in Smart Security Supervision）", "人工智能智能健康监管（AI in Smart Health Regulation）",
-            "人工智能智能医疗机器人（AI in Smart Medical Robots）", "人工智能智能营销自动化（AI in Smart Marketing Automation）", "人工智能智能物流自动化（AI in Smart Logistics Automation）",
-            "人工智能智能制造自动化（AI in Smart Manufacturing Automation）", "人工智能智能家居安全控制面板（AI in Smart Home Security Control Panels）", "人工智能智能安全防范（AI in Smart Security Prevention）",
-            "人工智能智能健康预警（AI in Smart Health Warning）", "人工智能智能医疗影像机器人（AI in Smart Medical Imaging Robots）", "人工智能智能营销管理（AI in Smart Marketing Management）",
-            "人工智能智能物流管理软件（AI in Smart Logistics Management Software）", "人工智能智能制造管理软件（AI in Smart Manufacturing Management Software）",
-            "人工智能智能家居安全系统软件（AI in Smart Home Security System Software）", "人工智能智能安全监管软件（AI in Smart Security Supervision Software）",
-            "人工智能智能健康分析软件（AI in Smart Health Analysis Software）", "人工智能智能医疗决策支持软件（AI in Smart Medical Decision Support Software）",
-            "人工智能智能营销分析软件（AI in Smart Marketing Analysis Software）", "人工智能智能物流分析软件（AI in Smart Logistics Analysis Software）",
-            "人工智能智能制造分析软件（AI in Smart Manufacturing Analysis Software）", "人工智能智能家居控制面板软件（AI in Smart Home Control Panel Software）",
-            "人工智能智能安全监察软件（AI in Smart Security Supervision Software）", "人工智能智能健康监管软件（AI in Smart Health Regulation Software）",
-            "人工智能智能医疗机器人软件（AI in Smart Medical Robot Software）", "人工智能智能营销自动化软件（AI in Smart Marketing Automation Software）",
-            "人工智能智能物流自动化软件（AI in Smart Logistics Automation Software）", "人工智能智能制造自动化软件（AI in Smart Manufacturing Automation Software）",
-            "人工智能智能家居安全控制面板软件（AI in Smart Home Security Control Panel Software）", "人工智能智能安全防范软件（AI in Smart Security Prevention Software）",
-            "人工智能智能健康预警软件（AI in Smart Health Warning Software）"
+            "人工智能游戏", "人工智能设计", "人工智能音乐", "人工智能文化", "人工智能哲学", "机器学习（Machine Learning）", "深度学习（Deep Learning）"
+
     };
+
+    public static HashSet<String> getTopics() {
+        HashSet<String> topics = new HashSet<>();
+        // 将数组转换为 HashSet
+        topics.addAll(Arrays.asList(topicsArray));
+        return topics;
+    }
 
 }
