@@ -24,14 +24,95 @@ import java.util.regex.Pattern;
 @RequestMapping("/api/ai/")
 public class AIWriteBlogController {
 
+    String mdFilePath = "/home/me/tools/pycnblog/articles/";
     @Autowired
     private NoteService noteService;
     @Autowired
     private MyTask myTask;
 
+    @NotNull
+    private static String processTitle(String title) {
+
+        // 去除前后空格
+        title = title.trim();
+
+        // 123.标题, 把标题前面的数字和.去掉：
+        // 1.标题A =>  标题A
+        // 223.标题B => 标题B
+        title = replaceStartDigitAndDot(title);
+        // 去掉标题中的引号和 - 等特殊字符
+        title = title.replaceAll("\"", "");
+        title = title.replaceAll("“", "");
+        title = title.replaceAll("、", "");
+        title = title.replaceAll("\\*", "");
+        title = title.replaceAll("”", "");
+        title = title.replaceAll("-", "");
+        title = title.replaceAll("》", "");
+        title = title.replaceAll("《", "");
+        title = title.replaceAll("]", "");
+        title = title.replaceAll("\\[", "");
+
+        // 避免超长标题
+        if (title.length() > 99) {
+            title = title.substring(0, 99);
+        }
+        return title;
+    }
+
+    @NotNull
+    private static String processContent(String content) {
+        String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
+        // 将字符串分割为行
+        String[] lines = content.split("\\r?\\n");
+
+        // 筛选出不匹配正则表达式的行
+        String[] filteredLines = Arrays.stream(lines)
+                .filter(line -> !Pattern.matches(pattern, line))
+                .toArray(String[]::new);
+
+        // 将筛选后的行重新组合为字符串
+        String result = String.join("\n", filteredLines);
+        return result;
+    }
+
+    /**
+     * 这个方法首先检查输入字符串是否为 null 或空字符串，如果是，则直接返回原始字符串。然后，它在字符串中查找第一个非数字字符的位置，这个位置就是标题中数字和点号的结尾位置。然后，它检查这个位置是否是一个点号，如果是，就将其忽略。最后，它返回从数字和点号结尾位置开始的子字符串。
+     * <p>
+     * 这个方法可以处理以下字符串：
+     * <p>
+     * "1.标题A" => "标题A"
+     * "223.标题B" => "标题B"
+     * "3.5.7.标题C" => "标题C"
+     * "标题D" => "标题D"
+     * "" => ""
+     * null => null
+     *
+     * @param str
+     * @return
+     */
+    public static String replaceStartDigitAndDot(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        int index = 0;
+        while (index < str.length() && Character.isDigit(str.charAt(index))) {
+            index++;
+        }
+        if (index > 0 && index < str.length() && str.charAt(index) == '.') {
+            index++;
+        }
+        return str.substring(index).trim();
+    }
+
     @PostMapping("/writeBlog")
     public String writeBlog(@RequestBody Prompt prompt) {
         return LLMUtil.INSTANCE.WriteBlog(prompt.getPrompt());
+    }
+
+    @GetMapping("/cleanOldArticles")
+    public String cleanOldArticles() {
+        noteService.cleanOldArticles();
+        return "done";
     }
 
     @PostMapping("/complete")
@@ -99,9 +180,6 @@ public class AIWriteBlogController {
         return "done";
     }
 
-
-    String mdFilePath = "/home/me/tools/pycnblog/articles/";
-
     /**
      * @param date 20230616
      * @return
@@ -127,7 +205,6 @@ public class AIWriteBlogController {
 
         return "done";
     }
-
 
     @GetMapping("/writeMDAll")
     public String writeMDAll() throws ParseException {
@@ -175,83 +252,6 @@ public class AIWriteBlogController {
         } catch (IOException e) {
             System.out.println(e);
         }
-    }
-
-    @NotNull
-    private static String processTitle(String title) {
-
-        // 去除前后空格
-        title = title.trim();
-
-        // 123.标题, 把标题前面的数字和.去掉：
-        // 1.标题A =>  标题A
-        // 223.标题B => 标题B
-        title = replaceStartDigitAndDot(title);
-        // 去掉标题中的引号和 - 等特殊字符
-        title = title.replaceAll("\"", "");
-        title = title.replaceAll("“", "");
-        title = title.replaceAll("、", "");
-        title = title.replaceAll("\\*", "");
-        title = title.replaceAll("”", "");
-        title = title.replaceAll("-", "");
-        title = title.replaceAll("》", "");
-        title = title.replaceAll("《", "");
-        title = title.replaceAll("]", "");
-        title = title.replaceAll("\\[", "");
-
-        // 避免超长标题
-        if (title.length() > 99) {
-            title = title.substring(0, 99);
-        }
-        return title;
-    }
-
-    @NotNull
-    private static String processContent(String content) {
-        // 文章内容每行的行首空格处理
-//        content = LLMUtil.INSTANCE.trimHeadSpaces(content);
-
-        String pattern = "(.*外链图片转存中.*)|(.*.png.*)|(.*.jpg.*)|(.*\\(https://.*)|.*(<img src=.*).*|(.*\\(http://.*)";
-        // 将字符串分割为行
-        String[] lines = content.split("\\r?\\n");
-
-        // 筛选出不匹配正则表达式的行
-        String[] filteredLines = Arrays.stream(lines)
-                .filter(line -> !Pattern.matches(pattern, line))
-                .toArray(String[]::new);
-
-        // 将筛选后的行重新组合为字符串
-        String result = String.join("\n", filteredLines);
-        return result;
-    }
-
-    /**
-     * 这个方法首先检查输入字符串是否为 null 或空字符串，如果是，则直接返回原始字符串。然后，它在字符串中查找第一个非数字字符的位置，这个位置就是标题中数字和点号的结尾位置。然后，它检查这个位置是否是一个点号，如果是，就将其忽略。最后，它返回从数字和点号结尾位置开始的子字符串。
-     * <p>
-     * 这个方法可以处理以下字符串：
-     * <p>
-     * "1.标题A" => "标题A"
-     * "223.标题B" => "标题B"
-     * "3.5.7.标题C" => "标题C"
-     * "标题D" => "标题D"
-     * "" => ""
-     * null => null
-     *
-     * @param str
-     * @return
-     */
-    public static String replaceStartDigitAndDot(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        }
-        int index = 0;
-        while (index < str.length() && Character.isDigit(str.charAt(index))) {
-            index++;
-        }
-        if (index > 0 && index < str.length() && str.charAt(index) == '.') {
-            index++;
-        }
-        return str.substring(index).trim();
     }
 
 }

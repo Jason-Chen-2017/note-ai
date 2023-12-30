@@ -142,6 +142,7 @@ public interface NotesMapper {
     @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE updated_at=created_at")
     List<Notes> getAllUnWrittenNotes();
 
+    // 查询近3d写好的文章
     @Select("SELECT id, title, content, created_at, updated_at FROM notes WHERE updated_at!=created_at  AND updated_at >= DATE(NOW()) - INTERVAL 3 DAY")
     List<Notes> getAllWrittenNotes();
 
@@ -166,4 +167,7 @@ public interface NotesMapper {
     @Select("SELECT count(*) FROM notes WHERE title LIKE CONCAT('%', #{keyword}, '%')")
     Integer getTotalNotesByKeyword(String keyword);
 
+    // 删除3d之前的写好的文章
+    @Delete("DELETE FROM notes WHERE ( updated_at < DATE(NOW()) - INTERVAL 3 DAY ) AND ( updated_at!=created_at ) ")
+    void cleanOldArticles();
 }

@@ -66,4 +66,8 @@ public class NoteService {
     public Integer getTotalNotesByKeyword(String keyword) {
         return notesMapper.getTotalNotesByKeyword(keyword);
     }
+
+    public void cleanOldArticles() {
+        notesMapper.cleanOldArticles();
+    }
 }
