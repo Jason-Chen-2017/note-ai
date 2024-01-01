@@ -100,9 +100,22 @@ CREATE TABLE `notes` (
 
 
 
+Clean Data:
+
+```sql
+
+select count(*) as titles from notes where updated_at=created_at;
+select count(*) as articles from notes where updated_at!=created_at;
+select count(*) from notes;
 
 
 
+DELETE FROM notes WHERE ( updated_at < DATE(NOW()) - INTERVAL 3 DAY ) AND ( updated_at!=created_at ) ;
+
+
+truncate table notes;
+
+```
 
 
 

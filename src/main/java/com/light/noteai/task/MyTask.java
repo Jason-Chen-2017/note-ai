@@ -195,7 +195,11 @@ public class MyTask {
                     note.setCreatedAt(date);
                     note.setUpdatedAt(date);
                     try {
+
                         noteService.save(note);
+                        // 防止mysql连接池满
+                        Thread.sleep(200);
+
                     } catch (Exception e) {
                         System.out.println(e);
                     }
