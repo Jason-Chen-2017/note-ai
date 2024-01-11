@@ -25,13 +25,6 @@ public class MyTask {
     @Autowired
     private AIWriteBlogController aIWriteBlogController;
 
-
-    @Scheduled(cron = "0 0 0 */1 * ?") // 每隔1d执行一次
-    public void cleanOldArticles() {
-        noteService.cleanOldArticles();
-    }
-
-
     private static boolean isGoodTitle(String line) {
         line = line.trim();
         return line.length() > 10 &&
@@ -164,7 +157,12 @@ public class MyTask {
                 ;
     }
 
-//    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    @Scheduled(cron = "0 0 0 */1 * ?") // 每隔1d执行一次
+    public void cleanOldArticles() {
+        noteService.cleanOldArticles();
+    }
+
+    //    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
     public void AIGC() {
         // 定时任务:
         System.out.println("AIGC定时任务执行时间：" + new Date());
@@ -224,7 +222,7 @@ public class MyTask {
         }
     }
 
-    //    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
+    @Scheduled(cron = "0 0 */2 * * ?") // 每隔1h执行一次
     public void WriteAllBlog() {
         // 定时任务:
         System.out.println("WriteBlog 任务执行时间：" + new Date());
@@ -270,7 +268,7 @@ public class MyTask {
     }
 
 
-//    @Scheduled(cron = "0 */10 * * * ?") // 每隔10分钟执行一次
+    //    @Scheduled(cron = "0 */10 * * * ?") // 每隔10分钟执行一次
     public void WriteMDFiles() {
         try {
             aIWriteBlogController.writeMDAll();
