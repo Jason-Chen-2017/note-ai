@@ -8,6 +8,8 @@ enum class LLM_MODEL { Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODE
 
 // 配置模型
 val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.ChatGLM_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.WizardLM_MODEL
 
 object LLMUtil {
 

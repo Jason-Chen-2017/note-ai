@@ -6,6 +6,7 @@ import com.light.noteai.constant.NoteAITopics;
 import com.light.noteai.controller.AIWriteBlogController;
 import com.light.noteai.mapper.po.Notes;
 import com.light.noteai.service.NoteService;
+import com.light.noteai.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class MyTask {
@@ -27,7 +30,7 @@ public class MyTask {
 
     private static boolean isGoodTitle(String line) {
         line = line.trim();
-        return line.length() > 10 &&
+        return line.length() > 15 &&
                 !line.contains("热门博客文章标题") &&
                 !line.contains("文章") &&
                 !line.contains("作者") &&
@@ -173,17 +176,19 @@ public class MyTask {
 
     public void doAutoAIGC() {
         for (String topic : NoteAITopics.topicsArray) {
-            String prompt = "现在你是一位人工智能专家,程序员,软件架构师,CTO，请以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（标题要非常吸引读者），请帮我拟定：" + topic + " 领域的30篇热门博客文章标题,每个标题放到单独的一行。只需要标题就可以了。不用多余的内容。";
+
+            // 您是一位世界级人工智能专家,程序员,软件架构师,CTO,世界顶级技术畅销书作者，计算机图灵奖获得者，计算机领域大师。现在请您以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（章节标题要非常吸引读者），写一本专业IT领域的技术书籍，书名是《Spring Boot开发实战代码案例详解》，请撰写50篇极具阅读价值和参考价值的技术文章,每个标题放到单独的一行，只需要标题就可以了。不用多余的内容。
+            String prompt = "您是一位世界级人工智能专家,程序员,软件架构师,CTO,世界顶级技术畅销书作者，计算机图灵奖获得者，计算机领域大师。现在请您以逻辑清晰、结构紧凑、简单易懂的专业的技术语言（章节标题要非常吸引读者），写一本专业IT领域的技术书籍，书名是《" + topic + "》，请撰写50篇极具阅读价值和参考价值的技术文章,每个标题放到单独的一行，只需要标题就可以了。不用多余的内容。";
 
             System.out.println(prompt);
 
             String lines = LLMUtil.INSTANCE.Complete(prompt);
 
-
             for (String line : lines.split("\n")) {
-
                 System.out.println(line);
                 line = line.trim();
+                // 去除序号.
+                // line = StringUtils.removePrefixAndDot(line);
 
                 if (isGoodTitle(line)) {
                     Notes note = new Notes();
@@ -206,6 +211,7 @@ public class MyTask {
         }
     }
 
+
     public void doAutoTitle() {
         for (String title : NoteAITitles.titleArray) {
             Notes note = new Notes();
@@ -222,7 +228,7 @@ public class MyTask {
         }
     }
 
-    @Scheduled(cron = "0 0 */2 * * ?") // 每隔1h执行一次
+    @Scheduled(cron = "0 0 */1 * * ?") // 每隔1h执行一次
     public void WriteAllBlog() {
         // 定时任务:
         System.out.println("WriteBlog 任务执行时间：" + new Date());
