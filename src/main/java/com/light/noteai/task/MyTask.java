@@ -187,8 +187,8 @@ public class MyTask {
             for (String line : lines.split("\n")) {
                 System.out.println(line);
                 line = line.trim();
-                // 去除序号.
-                // line = StringUtils.removePrefixAndDot(line);
+                // 去除开始的特殊字符序号.
+                line = StringUtils.removePrefixAndDot(line);
 
                 if (isGoodTitle(line)) {
                     Notes note = new Notes();

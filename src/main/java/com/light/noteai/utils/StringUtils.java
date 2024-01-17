@@ -11,18 +11,19 @@ public class StringUtils {
             return input;
         }
 
-        Pattern pattern = Pattern.compile("^\\d+\\.");
+        // 匹配： ### 123.
+        Pattern pattern = Pattern.compile("#+|\\s+|\\d+\\.");
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {
-            return matcher.replaceFirst("");
+            return matcher.replaceAll("");
         }
 
         return input;
     }
 
     public static void main(String[] args) {
-        String s = "123.性能测试：Spring Boot项目中的性能测试方法";
+        String s = "### 123.性能测试：Spring Boot2项目中的性能测试方法";
         String result = removePrefixAndDot(s);
         System.out.println(result);
     }
