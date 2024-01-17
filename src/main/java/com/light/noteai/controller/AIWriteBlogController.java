@@ -42,6 +42,8 @@ public class AIWriteBlogController {
         title = replaceStartDigitAndDot(title);
         // 去掉标题中的引号和 - 等特殊字符
         title = title.replaceAll("\"", "");
+        // 特殊目录符号： /
+        title = title.replaceAll("/", "_");
         title = title.replaceAll("“", "");
         title = title.replaceAll("、", "");
         title = title.replaceAll("\\*", "");
@@ -249,8 +251,10 @@ public class AIWriteBlogController {
             writer.write(content);
             writer.close();
 
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(mdFilePath);
+            System.out.println(title);
+            e.printStackTrace();
         }
     }
 

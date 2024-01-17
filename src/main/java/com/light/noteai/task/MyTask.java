@@ -279,7 +279,7 @@ public class MyTask {
         try {
             aIWriteBlogController.writeMDAll();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
