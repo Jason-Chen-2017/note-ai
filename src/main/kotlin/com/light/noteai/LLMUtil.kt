@@ -7,8 +7,8 @@ import java.util.*
 enum class LLM_MODEL { DeepSeek_MODEL, Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
 
 // 配置模型
-val USE_LLM_MODEL = LLM_MODEL.DeepSeek_MODEL
-//val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.DeepSeek_MODEL
+val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.ChatGLM_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.WizardLM_MODEL
 
