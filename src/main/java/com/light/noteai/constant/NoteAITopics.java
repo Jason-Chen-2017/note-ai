@@ -7,6 +7,7 @@ public class NoteAITopics {
 
 
     public final static String[] topicsArray = {
+            "软件系统架构黄金法则",
             "AI大模型应用开发实战代码案例详解",
             "ChatGPT开发实战代码案例详解",
             "ChatGPT与AIGC开发实战代码案例详解",
