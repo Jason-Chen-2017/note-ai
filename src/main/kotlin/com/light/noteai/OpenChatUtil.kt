@@ -7,6 +7,51 @@ import com.google.gson.Gson
 import com.light.noteai.LLMUtil.buildBlogPrompt
 import java.util.*
 
+/*
+
+POST:
+http://localhost:18888/v1/chat/completions
+
+{
+          "model": "openchat_3.5",
+          "messages": [
+           {
+             "role": "system",
+             "content": "You are a helpful assistant."
+            },
+            {
+              "role": "user",
+              "content": "1+1="
+            }
+          ],
+          "stream":true
+        }
+
+ Response：
+
+ {
+  "id": "cmpl-15594c9be3754817b094f8412fb85910",
+  "object": "chat.completion",
+  "created": 1705943665,
+  "model": "openchat_3.5",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "2"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 21,
+    "total_tokens": 24,
+    "completion_tokens": 3
+  }
+}
+
+ */
 
 // 随机返回 apiList 中的一个元素
 fun Get_OpenChat_LOCAL_API_Randomly(): String {
