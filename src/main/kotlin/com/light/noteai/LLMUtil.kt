@@ -4,11 +4,19 @@ package com.light.noteai
 import java.util.*
 
 
-enum class LLM_MODEL { DeepSeek_MODEL, Open_Chat_MODEL, QWen_MODEL, ChatGLM_MODEL, WizardLM_MODEL }
+enum class LLM_MODEL {
+    DeepSeek_MODEL,
+    Open_Chat_MODEL,
+    Yi_Chat_MODEL,
+    QWen_MODEL,
+    ChatGLM_MODEL,
+    WizardLM_MODEL
+}
 
 // 配置模型
 //val USE_LLM_MODEL = LLM_MODEL.DeepSeek_MODEL
 val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.Yi_Chat_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.ChatGLM_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.WizardLM_MODEL
 
@@ -19,18 +27,20 @@ object LLMUtil {
     "max_new_tokens":8192,"max_context_length":8192,"truncation_length":8192}
      */
     fun WriteBlog(prompt: String): String {
-        if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
-            return QianWenUtil.WriteBlog(prompt)
+        return if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
+            QianWenUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.WizardLM_MODEL) {
-            return WizardLMUtil.WriteBlog(prompt)
+            WizardLMUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
-            return ChatGLMUtil.WriteBlog(prompt)
+            ChatGLMUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
-            return OpenChatUtil.WriteBlog(prompt)
+            OpenChatUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.DeepSeek_MODEL) {
-            return DeepSeekUtil.WriteBlog(prompt)
+            DeepSeekUtil.WriteBlog(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Yi_Chat_MODEL) {
+            YiUtil.WriteBlog(prompt)
         } else {
-            return "No LLM"
+            "No LLM"
         }
     }
 
@@ -81,18 +91,20 @@ CONSTRAINTS:
 
 
     fun Complete(prompt: String): String {
-        if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
-            return QianWenUtil.Complete(prompt)
+        return if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
+            QianWenUtil.Complete(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.WizardLM_MODEL) {
-            return WizardLMUtil.Complete(prompt)
+            WizardLMUtil.Complete(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
-            return ChatGLMUtil.Complete(prompt)
+            ChatGLMUtil.Complete(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
-            return OpenChatUtil.Complete(prompt)
+            OpenChatUtil.Complete(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.DeepSeek_MODEL) {
-            return DeepSeekUtil.Complete(prompt)
+            DeepSeekUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Yi_Chat_MODEL) {
+            YiUtil.Complete(prompt)
         } else {
-            return "No LLM"
+            "No LLM"
         }
     }
 
