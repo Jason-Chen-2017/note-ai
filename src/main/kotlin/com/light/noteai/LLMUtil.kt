@@ -8,14 +8,16 @@ enum class LLM_MODEL {
     DeepSeek_MODEL,
     Open_Chat_MODEL,
     Yi_Chat_MODEL,
+    NeuralBeagle_MODEL,
     QWen_MODEL,
     ChatGLM_MODEL,
     WizardLM_MODEL
 }
 
-// 配置模型
-//val USE_LLM_MODEL = LLM_MODEL.DeepSeek_MODEL
+// 配置使用的模型
 val USE_LLM_MODEL = LLM_MODEL.Open_Chat_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.DeepSeek_MODEL
+//val USE_LLM_MODEL = LLM_MODEL.NeuralBeagle_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.Yi_Chat_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.ChatGLM_MODEL
 //val USE_LLM_MODEL = LLM_MODEL.WizardLM_MODEL
@@ -39,10 +41,33 @@ object LLMUtil {
             DeepSeekUtil.WriteBlog(prompt)
         } else if (USE_LLM_MODEL == LLM_MODEL.Yi_Chat_MODEL) {
             YiUtil.WriteBlog(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.NeuralBeagle_MODEL) {
+            NeuralBeagleLLM.WriteBlog(prompt)
         } else {
             "No LLM"
         }
     }
+
+    fun Complete(prompt: String): String {
+        return if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
+            QianWenUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.WizardLM_MODEL) {
+            WizardLMUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
+            ChatGLMUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
+            OpenChatUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.DeepSeek_MODEL) {
+            DeepSeekUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.Yi_Chat_MODEL) {
+            YiUtil.Complete(prompt)
+        } else if (USE_LLM_MODEL == LLM_MODEL.NeuralBeagle_MODEL) {
+            NeuralBeagleLLM.Complete(prompt)
+        } else {
+            "No LLM"
+        }
+    }
+
 
 
     fun buildBlogPrompt(prompt: String): String {
@@ -90,23 +115,6 @@ CONSTRAINTS:
     }
 
 
-    fun Complete(prompt: String): String {
-        return if (USE_LLM_MODEL == LLM_MODEL.QWen_MODEL) {
-            QianWenUtil.Complete(prompt)
-        } else if (USE_LLM_MODEL == LLM_MODEL.WizardLM_MODEL) {
-            WizardLMUtil.Complete(prompt)
-        } else if (USE_LLM_MODEL == LLM_MODEL.ChatGLM_MODEL) {
-            ChatGLMUtil.Complete(prompt)
-        } else if (USE_LLM_MODEL == LLM_MODEL.Open_Chat_MODEL) {
-            OpenChatUtil.Complete(prompt)
-        } else if (USE_LLM_MODEL == LLM_MODEL.DeepSeek_MODEL) {
-            DeepSeekUtil.Complete(prompt)
-        } else if (USE_LLM_MODEL == LLM_MODEL.Yi_Chat_MODEL) {
-            YiUtil.Complete(prompt)
-        } else {
-            "No LLM"
-        }
-    }
 
 }
 
